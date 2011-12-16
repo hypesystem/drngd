@@ -19,7 +19,7 @@
             <input type="submit" value="Shorten link" />
         </div>
         <br />
-        <div id="output">
+        <div id="output" class="create">
             
         </div>
     </body>
