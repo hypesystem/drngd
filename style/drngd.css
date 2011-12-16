@@ -1,0 +1,40 @@
+body {
+    background: #1a1a1a url('bg.png') repeat-x;
+    text-align: center;
+}
+#create-link {
+    font-family: 'Corbel', sans-serif;
+    font-size: 32px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px white;
+    text-align: center;
+    vertical-align: top;
+    width: 650px;
+    display: inline-block;
+    margin-top: 100px;
+}
+#create-link img {
+    float: left;
+}
+#create-link input {
+    margin-top: 36px;
+    font-size: 18px;
+    padding: 8px;
+}
+#create-link input[name=url] {
+    width: 300px;
+}
+#create-link input[name=url].inactive {
+    color: #999;
+}
+#output {
+    width: 650px;
+    display: inline-block;
+    margin-top: 35px;
+    color: white;
+    font-family: 'Calibri',sans-serif;
+}
+#output a {
+    color: white;
+}
