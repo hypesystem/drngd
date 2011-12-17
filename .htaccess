@@ -3,4 +3,5 @@
 RewriteEngine On
 RewriteOptions Inherit
 
-RewriteRule ^/([a-z0-9]+) /v.php?v=$1
+RewriteRule ^([a-z0-9]+) v.php?v=$1
+RewriteRule ^!stats/([a-z0-9+) stats.php?l=$1
