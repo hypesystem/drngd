@@ -1,6 +1,6 @@
 # IndexIgnore README.markdown .gitignore .htaccess
 
-#RewriteEngine On
-#RewriteOptions Inherit
+RewriteEngine On
+RewriteOptions Inherit
 
-#RewriteRule ^([a-z0-9]+)$ v.php?v=$1
+RewriteRule ^([a-z0-9]+)$ v.php?v=$1
