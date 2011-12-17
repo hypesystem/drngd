@@ -7,4 +7,4 @@ RewriteRule /^([a-z0-9]+)$ /v.php?v=$1
 RewriteRule /!stats/^([a-z0-9]+)$ /stats.php?l=$1
 RewriteRule /stats /stats.php?l=1
 
-ErrorDocument 404 .
+ErrorDocument 404 index.php
