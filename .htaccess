@@ -1,7 +1,7 @@
 # IndexIgnore README.markdown .gitignore .htaccess
 
-RewriteEngine On
+RewriteEngine on
 # RewriteOptions Inherit
 
 RewriteRule ^/([a-z0-9]+)$ /v.php?v=$1
-RewriteRule ^/#/stats/([a-z0-9]+)$ /stats.php?l=$1
+# RewriteRule ^/!stats/([a-z0-9]+)$ /stats.php?l=$1
