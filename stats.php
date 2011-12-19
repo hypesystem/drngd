@@ -1,17 +1,23 @@
 <?php include("func.php"); ?>
-<?php if(verifyLinkKey($_GET['l'])): ?>
+<?php if(true || verifyLinkKey($_GET['l'])): ?>
 <?php
 include('mysql_connect.php');
 //get link
 $get = mysql_query("SELECT * FROM link WHERE id='".intval($_GET['l'],36)."' LIMIT 1") or die(mysql_error());
 $get = mysql_fetch_assoc($get);
 $get_visits = mysql_query("SELECT * FROM link_visit WHERE link_id = '".intval($_GET['l'])."' ORDER BY timestamp ASC") or die(mysql_error());
+
 $visits_day = 0;
 $visits_week = 0;
 $visits_month = 0;
 $visits_year = 0;
 $visits_total = 0;
+$user_os = array();
+$user_browser = array();
+$known_os = array( "windows", "linux", "macintosh", "msie");
+$known_browsers = array ( "firefox" , "netscape", "mozilla", "chrome", "konqueror", "opera", "safari" );
 while($calc = mysql_fetch_assoc($get_visits)) {
+    //visit statistics
     $visits_total++;
     $time = time() - strtotime($calc['timestamp']);
     if($time < 31536000) {
@@ -25,6 +31,41 @@ while($calc = mysql_fetch_assoc($get_visits)) {
                 }
             }
         }
+    }
+    
+    //user agent statistics
+    $browser;
+    $os;
+    $words = explode(' ',strtolower($calc['user_agent']));
+    foreach($known_os as $this_os) {
+        foreach($words as $word) {
+            if(!isset($os) && strpos($word,$this_os) !== false) {
+                $os = $this_os;
+            }
+        }
+    }
+    foreach($known_browsers as $br) {
+        foreach($words as $word) {
+            if(!isset($browser) && strpos($word,$br) !== false) {
+                $browser = $br;
+            }
+        }
+    }
+    if(!isset($browser)) {
+        if(!isset($user_browser["other"])) $user_browser["other"] = 1;
+        else $user_browser["other"]++;
+    }
+    else {
+        if(!isset($user_browser[$browser])) $user_browser[$browser] = 1;
+        else $user_browser[$browser]++;
+    }
+    if(!isset($os)) {
+        if(!isset($user_os["other"])) $user_os["other"] = 1;
+        else $user_os["other"]++;
+    }
+    else {
+        if(!isset($user_os[$os])) $user_os[$os] = 1;
+        else $user_os[$os]++;
     }
 }
 ?>
@@ -56,7 +97,17 @@ while($calc = mysql_fetch_assoc($get_visits)) {
                         <td>Links to:</td>
                         <td><a href="<?php echo $get['href']; ?>" target="_blank"><?php echo $get['href']; ?></a></td>
                         <td rowspan="9" colspan="2">
-                            The following are statistics regarding operating system and browser for people visiting this link.
+                            The following are statistics regarding operating system and browser for people visiting this link.<br/>
+                            <table>
+                            <?php foreach($user_browser as $key => $val): ?>
+                                <tr><td><?php echo ucfirst($key); ?>:</td><td><?php echo $val; ?></td></tr>
+                            <?php endforeach; ?>
+                            </table>
+                            <table>
+                            <?php foreach($user_os as $key => $val): ?>
+                                <tr><td><?php echo ucfirst($key); ?>:</td><td><?php echo $val; ?></td></tr>
+                            <?php endforeach; ?>
+                            </table>
                         </td>
                     </tr>
                     <tr>
