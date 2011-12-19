@@ -1,4 +1,5 @@
-<?php if(isset($_GET['l'])): ?>
+<?php include("func.php"); ?>
+<?php if(verifyLinkKey($_GET['l'])): ?>
 <?php
 include('mysql_connect.php');
 //get link
@@ -98,5 +99,5 @@ while($calc = mysql_fetch_assoc($get_visits)) {
     </body>
 </html>
 <?php else: ?>
-
+<?php header("Location: index.php"); ?>
 <?php endif; ?>
