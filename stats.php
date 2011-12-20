@@ -211,7 +211,7 @@ while($calc = mysql_fetch_assoc($get_visits)) {
                 </tbody>
             </table>
         </div>
-        <div class="version-box">version 1.0.0</div>
+        <div class="version-box">version 1.0.0.<?php include("version.log"); ?></div>
     </body>
 </html>
 <?php else: ?>

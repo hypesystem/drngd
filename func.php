@@ -10,4 +10,9 @@ function verifyLinkKey($key) {
     return false;
 }
 
+/**
+ * Bash script to save commit # hashtag to version.log:
+ * git describe --all --long | tr "-" " " | awk '{ print $3 }' > version.txt
+ */
+
 ?>
