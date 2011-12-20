@@ -111,9 +111,27 @@ while($calc = mysql_fetch_assoc($get_visits)) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Links to:</td>
-                        <td><a href="<?php echo $get['href']; ?>" target="_blank"><?php echo $get['href']; ?></a></td>
-                        <td rowspan="100" colspan="2">
+                        <td colspan="2">
+                            This section contains general information about the link.
+                            <table class="data" id="info-data">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Link information</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="key">Created on:</td>
+                                        <td class="value"><?php echo date("j/n Y h:i",strtotime($get['timestamp'])); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="key">Links to:</td>
+                                        <td class="value"><a href="<?php echo $get['href']; ?>" target="_blank"><?php echo $get['href']; ?></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td colspan="2">
                             The following are statistics regarding operating system and browser for people visiting this link.<br/>
                             <table class="data" id="browser-data">
                                 <thead>
@@ -147,39 +165,48 @@ while($calc = mysql_fetch_assoc($get_visits)) {
                             </table>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Created:</td>
-                        <td><?php echo date("j/n Y h:i",strtotime($get['timestamp'])); ?></td>
-                    </tr>
                 </tbody>
+            </table>
+            <table>
                 <thead>
                     <tr>
                         <th colspan="2">Visits/time</th>
+                        <td colspan="2"></td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="2">The statistics show how popular the link is.</td>
-                    </tr>
-                    <tr>
-                        <td>Last day:</td>
-                        <td><?php echo $visits_day; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Last week:</td>
-                        <td><?php echo $visits_week; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Last month:</td>
-                        <td><?php echo $visits_month; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Last year:</td>
-                        <td><?php echo $visits_year; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Total visits:</td>
-                        <td><?php echo $visits_total; ?></td>
+                        <td colspan="2">The statistics show how popular the link is.
+                            <table class="data" id="visits-data">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Visits</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Last day:</td>
+                                        <td><?php echo $visits_day; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last week:</td>
+                                        <td><?php echo $visits_week; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last month:</td>
+                                        <td><?php echo $visits_month; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last year:</td>
+                                        <td><?php echo $visits_year; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total visits:</td>
+                                        <td><?php echo $visits_total; ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
                 </tbody>
             </table>
