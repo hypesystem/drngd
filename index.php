@@ -22,6 +22,7 @@
         <div id="output" class="create">
             
         </div>
+        <div class="version-box">version 1.0.0</div>
     </body>
 </html>
 <?php endif; ?>

@@ -83,3 +83,13 @@ a {
     text-align: right;
     width: 100px;
 }
+
+.version-box {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    color: white;
+    padding: 15px;
+    font-family: 'Consolas','Courier New',monospace;
+    font-size: 12px;
+}
