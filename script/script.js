@@ -18,7 +18,9 @@ $(document).ready(function(){
     });
     
     $("input[type=submit]").click(function() {
+        $("#output").hide();
         $("#output").load("create-link.php?url="+$("input[name=url]").attr('value'));
+        $("#output").fadeIn("slow");
     });
     
 });

@@ -1,7 +1,7 @@
 <?php
 
 function verifyLinkKey($key) {
-    if(!isset($key) || $key == "" || !preg_match("^[0-9a-z]+")) return false;
+    if(!isset($key) || $key == "" || !preg_match("/^[0-9a-z]+/",$key)) return false;
     include("mysql_connect.php");
     $key = intval(trim(strtolower($key)), 36);
     $get = mysql_query("SELECT * FROM link WHERE id='{$key}' LIMIT 1") or die(mysql_error());

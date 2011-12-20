@@ -1,5 +1,5 @@
 <?php include("func.php"); ?>
-<?php if(true || verifyLinkKey($_GET['l'])): ?>
+<?php if(verifyLinkKey($_GET['l'])): ?>
 <?php
 include('mysql_connect.php');
 //get link
@@ -14,8 +14,25 @@ $visits_year = 0;
 $visits_total = 0;
 $user_os = array();
 $user_browser = array();
-$known_os = array( "windows", "linux", "macintosh", "msie");
-$known_browsers = array ( "firefox" , "netscape", "mozilla", "chrome", "konqueror", "opera", "safari" );
+$known_os = array(
+    "Windows" => "windows",
+    "Linux" => "linux",
+    "Mac" => "macintosh",
+    "Other" => ""
+    );
+$known_browsers = array (
+    "Internet Explorer" => "msie",
+    "Firefox" => "firefox",
+    "Netscape" => "netscape",
+    "Chrome" => "chrome",
+    "Konqueror" => "konqueror",
+    "Opera" => "opera",
+    "Safari" => "safari",
+    "Mozilla" => "mozilla",
+    "Other" => ""
+    );
+$browser;
+$os;
 while($calc = mysql_fetch_assoc($get_visits)) {
     //visit statistics
     $visits_total++;
@@ -34,22 +51,22 @@ while($calc = mysql_fetch_assoc($get_visits)) {
     }
     
     //user agent statistics
-    $browser;
-    $os;
+    unset($browser);
+    unset($os);
     $words = explode(' ',strtolower($calc['user_agent']));
-    foreach($known_os as $this_os) {
+    foreach($known_os as $key => $this_os) {
         foreach($words as $word) {
             if(!isset($os) && strpos($word,$this_os) !== false) {
-                $os = $this_os;
+                $os = $key;
             }
         }
     }
-    foreach($known_browsers as $br) {
+    foreach($known_browsers as $key => $br) {
         foreach($words as $word) {
             if(!isset($browser) && strpos($word,$br) !== false) {
-                $browser = $br;
+                $browser = $key;
             }
-        }
+        };
     }
     if(!isset($browser)) {
         if(!isset($user_browser["other"])) $user_browser["other"] = 1;
@@ -96,17 +113,37 @@ while($calc = mysql_fetch_assoc($get_visits)) {
                     <tr>
                         <td>Links to:</td>
                         <td><a href="<?php echo $get['href']; ?>" target="_blank"><?php echo $get['href']; ?></a></td>
-                        <td rowspan="9" colspan="2">
+                        <td rowspan="100" colspan="2">
                             The following are statistics regarding operating system and browser for people visiting this link.<br/>
-                            <table>
-                            <?php foreach($user_browser as $key => $val): ?>
-                                <tr><td><?php echo ucfirst($key); ?>:</td><td><?php echo $val; ?></td></tr>
-                            <?php endforeach; ?>
+                            <table class="data" id="browser-data">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Browser</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($user_browser as $key => $val): ?>
+                                    <tr>
+                                        <td class="key"><?php echo $key; ?>:</td>
+                                        <td class="value"><?php echo number_format(100 * $val / $visits_total,1); ?>% (<?php echo $val; ?>)</td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
                             </table>
-                            <table>
-                            <?php foreach($user_os as $key => $val): ?>
-                                <tr><td><?php echo ucfirst($key); ?>:</td><td><?php echo $val; ?></td></tr>
-                            <?php endforeach; ?>
+                            <table class="data" id="os-data">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Operating System</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($user_os as $key => $val): ?>
+                                    <tr>
+                                        <td class="key"><?php echo $key; ?>:</td>
+                                        <td class="value"><?php echo (100 * $val / $visits_total); ?>% (<?php echo $val; ?>)</td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
                             </table>
                         </td>
                     </tr>

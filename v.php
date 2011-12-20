@@ -10,6 +10,6 @@ if(verifyLinkKey($_GET['v'])) {
     header('Location: '.$url['href']);
 }
 else {
-    header('Location: index.php');
+    //header('Location: index.php');
 }
 ?>
