@@ -1,6 +1,6 @@
 <?php
 if(!isset($_GET['url']) || $_GET['url'] == "" || $_GET['url'] == "http://url") {
-    echo 'No url passed.';
+    echo '<span class="red">Error!</span> No url passed.';
 }
 else {
     $match;
@@ -11,7 +11,7 @@ else {
         $match = "http://".$_GET['url'];
     }
     else {
-        echo 'Entered address is not valid url.';
+        echo '<span class="red">Error!</span> Entered address is not valid url.';
     }
     
     if(isset($match)) {
@@ -19,7 +19,8 @@ else {
         mysql_query("INSERT INTO link (href,timestamp) VALUES ('".addslashes($_GET['url'])."','".date("Y-m-d H:i:s")."')") or die(mysql_error());
         $get = mysql_query("SELECT * FROM link WHERE href='".addslashes($_GET['url'])."' ORDER BY id DESC") or die(mysql_error());
         $get = mysql_fetch_assoc($get);
-        echo 'Your short link is: <a href="http://drng.dk/'.base_convert($get['id'],10,36).'" target="_blank">drng.dk/'.base_convert($get['id'],10,36).'</a>';
+        echo '<span class="green">Success!</span> Your short link is: <a href="http://drng.dk/'.base_convert($get['id'],10,36).'" target="_blank">drng.dk/'.base_convert($get['id'],10,36).'</a><br />';
+        echo 'To track and view statistics for your link, see <a href="http://drng.dk/stats.php?l='.base_convert($get['id'],10,36).'">http://drng.dk/stats.php?l='.base_convert($get['id'],10,36).'</a>';
     }
 }
 ?>

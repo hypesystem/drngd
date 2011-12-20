@@ -5,6 +5,14 @@ body {
 a {
     color: white;
 }
+.green {
+    color: green;
+    font-weight: bold;
+}
+.red {
+    color: red;
+    font-weight: bold;
+}
 #create-link, #stats-head {
     font-family: 'Corbel', sans-serif;
     font-size: 32px;
