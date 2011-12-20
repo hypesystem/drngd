@@ -97,7 +97,7 @@ while($calc = mysql_fetch_assoc($get_visits)) {
     </head>
     <body>
         <div id="stats-head">
-            <img src="style/logo.png" alt="deranged" title="deranged" />
+            <a href="http://drng.dk"><img src="style/logo.png" alt="deranged" title="deranged" /></a>
             <p>Statistics for <a href="http://drng.dk/<?php echo $_GET['l']; ?>" target="_blank">drng.dk/<?php echo $_GET['l']; ?></a></p>
         </div>
         <br />

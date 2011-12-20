@@ -19,6 +19,7 @@ a {
 }
 #create-link img, #stats-head img {
     float: left;
+    border: none;
 }
 #stats-head p {
     margin-top: 41px;

@@ -14,7 +14,7 @@
     </head>
     <body>
         <div id="create-link">
-            <img src="style/logo.png" alt="deranged" title="deranged" />
+            <a href="http://drng.dk"><img src="style/logo.png" alt="deranged" title="deranged" /></a>
             <input type="text" name="url" value="http://url" class="inactive" />
             <input type="submit" value="Shorten link" />
         </div>
