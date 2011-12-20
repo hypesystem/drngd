@@ -5,7 +5,7 @@ include('mysql_connect.php');
 //get link
 $get = mysql_query("SELECT * FROM link WHERE id='".intval($_GET['l'],36)."' LIMIT 1") or die(mysql_error());
 $get = mysql_fetch_assoc($get);
-$get_visits = mysql_query("SELECT * FROM link_visit WHERE link_id = '".intval($_GET['l'])."' ORDER BY timestamp ASC") or die(mysql_error());
+$get_visits = mysql_query("SELECT * FROM link_visit WHERE link_id = '".intval($_GET['l'],36)."' ORDER BY timestamp ASC") or die(mysql_error());
 
 $visits_day = 0;
 $visits_week = 0;
