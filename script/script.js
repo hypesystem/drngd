@@ -12,6 +12,12 @@ $(document).ready(function(){
         $(this).attr('src','style/logo.png');
     });
     
+    $("input[name=url]").keypress(function(event) {
+       if(event.which == 13) {
+           $("input[type=submit]").click();
+       }
+    });
+    
     $("input.inactive").click(function() {
         $(this).attr("value",'');
         $(this).removeClass("inactive");
