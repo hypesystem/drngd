@@ -7,6 +7,9 @@ else {
     if(preg_match('#http\:\/\/[aA-zZ0-9\.]+#',$_GET['url'])) {
         $match = $_GET['url'];
     }
+    else if(preg_match("#https\:\/\/[aA-zZ0-9\.]+#",$_GET['url'])) {
+        $match = $_GET['url'];
+    }
     else if(preg_match("#www\.[aA-zZ0-9\.]+#",$_GET['url'])) {
         $match = "http://".$_GET['url'];
     }
