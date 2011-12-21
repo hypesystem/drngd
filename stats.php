@@ -85,6 +85,8 @@ while($calc = mysql_fetch_assoc($get_visits)) {
         else $user_os[$os]++;
     }
 }
+arsort($user_os);
+arsort($user_browser);
 ?>
 <!DOCTYPE html>
 <html>
