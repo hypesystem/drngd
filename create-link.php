@@ -4,13 +4,12 @@ if(!isset($_GET['url']) || $_GET['url'] == "" || $_GET['url'] == "http://url") {
 }
 else {
     $match;
-    if(preg_match('#http\:\/\/[aA-zZ0-9\.]+#',$_GET['url'])) {
+    if(preg_match('#^ftp\:\/\/[aA-zZ0-9.-]+\.[aA-zZ]+#',$_GET['url']) ||
+            preg_match('#^http\:\/\/[aA-zZ0-9.-]+\.[aA-zZ]+#',$_GET['url']) ||
+            preg_match('#^https\:\/\/[aA-zZ0-9.-]+\.[aA-zZ]+#',$_GET['url'])) {
         $match = $_GET['url'];
     }
-    else if(preg_match("#https\:\/\/[aA-zZ0-9\.]+#",$_GET['url'])) {
-        $match = $_GET['url'];
-    }
-    else if(preg_match("#www\.[aA-zZ0-9\.]+#",$_GET['url'])) {
+    else if(preg_match("#^www\.[aA-zZ0-9.-]+\.[aA-zZ]+#",$_GET['url'])) {
         $match = "http://".$_GET['url'];
     }
     else {
