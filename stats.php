@@ -69,16 +69,16 @@ while($calc = mysql_fetch_assoc($get_visits)) {
         };
     }
     if(!isset($browser)) {
-        if(!isset($user_browser["other"])) $user_browser["other"] = 1;
-        else $user_browser["other"]++;
+        if(!isset($user_browser["Other"])) $user_browser["Other"] = 1;
+        else $user_browser["Other"]++;
     }
     else {
         if(!isset($user_browser[$browser])) $user_browser[$browser] = 1;
         else $user_browser[$browser]++;
     }
     if(!isset($os)) {
-        if(!isset($user_os["other"])) $user_os["other"] = 1;
-        else $user_os["other"]++;
+        if(!isset($user_os["Other"])) $user_os["Other"] = 1;
+        else $user_os["Other"]++;
     }
     else {
         if(!isset($user_os[$os])) $user_os[$os] = 1;
