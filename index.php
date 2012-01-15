@@ -14,6 +14,7 @@
     </head>
     <body>
         <div id="create-link">
+            <a style="width:150px;height:92px;vertical-align:middle;text-align:center;background-color:#000;position:absolute;z-index:5555;top:53px;left:360px;background-image:url(http://americancensorship.org/images/stop-censorship-small.png);background-position:center center;background-repeat:no-repeat;" href="http://americancensorship.org"></a>
             <a href="http://drng.dk"><img src="style/logo.png" alt="deranged" title="deranged" /></a>
             <input type="text" name="url" value="http://url" class="inactive" />
             <input type="submit" value="Shorten link" />
