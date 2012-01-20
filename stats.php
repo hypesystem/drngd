@@ -129,7 +129,7 @@ arsort($user_browser);
                                     </tr>
                                     <tr>
                                         <td class="key">Links to:</td>
-                                        <td class="value"><a href="<?php echo $get['href']; ?>" target="_blank"><?php echo $get['href']; ?></a></td>
+                                        <td class="value"><a href="http://drng.dk/<?php echo $_GET['l']; ?>" target="_blank"><?php echo $get['href']; ?></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -218,5 +218,5 @@ arsort($user_browser);
     </body>
 </html>
 <?php else: ?>
-<?php header("Location: index.php"); ?>
+<?php header("Location: http://drng.dk"); ?>
 <?php endif; ?>

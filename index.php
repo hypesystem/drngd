@@ -1,6 +1,6 @@
 <?php
     if(isset($_GET['v'])):
-        header("Location: v.php?v=".$_GET['v']);
+        header("Location: ".$_GET['v']);
     else:
 ?>
 <!DOCTYPE html>
