@@ -7,9 +7,9 @@ $(document).ready(function(){
         $(this).attr('src','style/logo.png');
     });
     $("#stats-head img").hover(function() {
-        $(this).attr('src','http://drng.dk/style/logo_glow.png');
+        $(this).attr('src','style/logo_glow.png');
     },function() {
-        $(this).attr('src','http://drng.dk/style/logo.png');
+        $(this).attr('src','style/logo.png');
     });
     
     $("input[name=url]").keypress(function(event) {

@@ -92,6 +92,7 @@ arsort($user_browser);
 <html>
     <head>
         <meta charset="utf-8" />
+        <base href="http://drng.dk/" />
         <title>drng</title>
         <link rel="stylesheet" type="text/css" href="http://drng.dk/style/drngd.css" />
         <script type="text/javascript" src="http://drng.dk/script/jquery.js"></script>
