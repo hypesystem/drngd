@@ -18,15 +18,19 @@ $(document).ready(function(){
        }
     });
     
-    $("input.inactive").click(function() {
-        $(this).attr("value",'');
+    $("input[name=url]").click(function() {
+        if($(this).attr("value") == "http://url") $(this).attr("value",'');
         $(this).removeClass("inactive");
     });
     
     $("input[type=submit]").click(function() {
+        $(this).attr("disabled",true);
         $("#output").hide();
         $("#output").load("create-link.php?url="+$("input[name=url]").attr('value'));
+        $("input[name=url]").attr("value","http://url");
+        $("input[name=url]").addClass("inactive");
         $("#output").fadeIn("slow");
+        $(this).delay("slow").removeAttr("disabled");
     });
     
 });
