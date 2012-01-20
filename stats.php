@@ -214,7 +214,7 @@ arsort($user_browser);
                 </tbody>
             </table>
         </div>
-        <div class="version-box">version 1.0.0.<?php include("version.log"); ?></div>
+        <div class="version-box">version 1.0.1.<?php include("version.log"); ?></div>
     </body>
 </html>
 <?php else: ?>
