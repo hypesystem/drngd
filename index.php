@@ -7,10 +7,16 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <!--<base href="http://drng.dk/" />-->
         <title>drng</title>
         <link rel="stylesheet" type="text/css" href="style/drngd.css" />
         <script type="text/javascript" src="script/jquery.js"></script>
         <script type="text/javascript" src="script/script.js"></script>
+        <script type="text/javascript" src="clip/ZeroClipboard.js"></script>
+        <script type="text/javascript">
+            ZeroClipboard.setMoviePath( 'clip/ZeroClipboard.swf' );
+            var copyLink = new ZeroClipboard.Client();
+        </script>
     </head>
     <body>
         <div id="create-link">
