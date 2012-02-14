@@ -92,7 +92,7 @@ arsort($user_browser);
 <html>
     <head>
         <meta charset="utf-8" />
-        <base href="http://drng.dk/" />
+        <!--<base href="http://drng.dk/" />-->
         <title>drng</title>
         <link rel="stylesheet" type="text/css" href="style/drngd.css" />
         <script type="text/javascript" src="script/jquery.js"></script>
@@ -103,18 +103,14 @@ arsort($user_browser);
             $(document).ready(function() {
                 chart = new Highcharts.Chart({
                     chart: {
-                        renderTo: 'container',
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false
+                        renderTo: 'os-graph',
+                        backgroundColor: '#101010'
                     },
                     title: {
-                        text: 'Visitors\' Operating Systems'
+                        text: 'Browsers used by visitors'
                     },
                     tooltip: {
-                        formatter: function() {
-                            return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
-                        }
+                        formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +' %'; }
                     },
                     plotOptions: {
                         pie: {
@@ -122,10 +118,10 @@ arsort($user_browser);
                             cursor: 'pointer',
                             dataLabels: {
                                 enabled: true,
-                                color: '#000000',
-                                connectorColor: '#000000',
+                                color: '#FFFFFF',
+                                connectorColor: '#AAAAAA',
                                 formatter: function() {
-                                    return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                                    return this.point.name;
                                 }
                             }
                         }
@@ -134,17 +130,9 @@ arsort($user_browser);
                         type: 'pie',
                         name: 'Browser share',
                         data: [
-                            ['Firefox',   45.0],
-                            ['IE',       26.8],
-                            {
-                                name: 'Chrome',    
-                                y: 12.8,
-                                sliced: true,
-                                selected: true
-                            },
-                            ['Safari',    8.5],
-                            ['Opera',     6.2],
-                            ['Others',   0.7]
+                        <?php foreach($user_browser as $key => $val): ?>
+                            ['<?php echo $key; ?>', <?php echo (100 * ($val / $visits_total)); ?>],
+                        <?php endforeach; ?>
                         ]
                     }]
                 });
@@ -263,8 +251,8 @@ arsort($user_browser);
                                 </tbody>
                             </table>
                         </td>
-                        <td style="border: 1px solid white;" colspan="2">
-                            <div id="container" style="height: 200px; margin: 0 auto;"></div>
+                        <td colspan="2">
+                            <div id="os-graph" style="height: 200px; margin: 0 auto;"></div>
                         </td>
                     </tr>
                 </tbody>
