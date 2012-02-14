@@ -99,9 +99,46 @@ arsort($user_browser);
         <script type="text/javascript" src="script/script.js"></script>
         <script type="text/javascript" src="script/highcharts.js"></script>
         <script type="text/javascript">
-            var chart;
+            var browserChart;
+            var osChart;
             $(document).ready(function() {
-                chart = new Highcharts.Chart({
+                browserChart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'browser-graph',
+                        backgroundColor: '#101010'
+                    },
+                    title: {
+                        text: 'Browsers used by visitors'
+                    },
+                    tooltip: {
+                        formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +' %'; }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                color: '#FFFFFF',
+                                connectorColor: '#AAAAAA',
+                                formatter: function() {
+                                    return this.point.name;
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: [
+                        <?php foreach($user_browser as $key => $val): ?>
+                            ['<?php echo $key; ?>', <?php echo (100 * ($val / $visits_total)); ?>],
+                        <?php endforeach; ?>
+                        ]
+                    }]
+                });
+                
+                osChart = new Highcharts.Chart({
                     chart: {
                         renderTo: 'os-graph',
                         backgroundColor: '#101010'
@@ -130,7 +167,7 @@ arsort($user_browser);
                         type: 'pie',
                         name: 'Browser share',
                         data: [
-                        <?php foreach($user_browser as $key => $val): ?>
+                        <?php foreach($user_os as $key => $val): ?>
                             ['<?php echo $key; ?>', <?php echo (100 * ($val / $visits_total)); ?>],
                         <?php endforeach; ?>
                         ]
