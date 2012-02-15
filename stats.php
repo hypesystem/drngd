@@ -99,19 +99,18 @@ arsort($user_browser);
         <script type="text/javascript" src="script/script.js"></script>
         <script type="text/javascript" src="script/highcharts.js"></script>
         <script type="text/javascript">
-            var browserChart;
-            var osChart;
+            var browserChart, osChart, visitsChart;
             $(document).ready(function() {
                 browserChart = new Highcharts.Chart({
                     chart: {
                         renderTo: 'browser-graph',
-                        backgroundColor: '#101010'
+                        backgroundColor: '#1a1a1a'
                     },
                     title: {
                         text: 'Browsers used by visitors'
                     },
                     tooltip: {
-                        formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +' %'; }
+                        formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; }
                     },
                     plotOptions: {
                         pie: {
@@ -132,7 +131,7 @@ arsort($user_browser);
                         name: 'Browser share',
                         data: [
                         <?php foreach($user_browser as $key => $val): ?>
-                            ['<?php echo $key; ?>', <?php echo (100 * ($val / $visits_total)); ?>],
+                            ['<?php echo $key; ?>', <?php echo $val; ?>],
                         <?php endforeach; ?>
                         ]
                     }]
@@ -141,13 +140,13 @@ arsort($user_browser);
                 osChart = new Highcharts.Chart({
                     chart: {
                         renderTo: 'os-graph',
-                        backgroundColor: '#101010'
+                        backgroundColor: '#1a1a1a'
                     },
                     title: {
-                        text: 'Browsers used by visitors'
+                        text: 'Operating systems used by visitors'
                     },
                     tooltip: {
-                        formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +' %'; }
+                        formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; }
                     },
                     plotOptions: {
                         pie: {
@@ -165,12 +164,47 @@ arsort($user_browser);
                     },
                     series: [{
                         type: 'pie',
-                        name: 'Browser share',
+                        name: 'OS share',
                         data: [
                         <?php foreach($user_os as $key => $val): ?>
-                            ['<?php echo $key; ?>', <?php echo (100 * ($val / $visits_total)); ?>],
+                            ['<?php echo $key; ?>', <?php echo $val; ?>],
                         <?php endforeach; ?>
                         ]
+                    }]
+                });
+                
+                visitsChart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'visits-graph',
+                        defaultSeriesType: 'line',
+                        backgroundColor: '#1a1a1a'
+                    },
+                    title: {
+                        text: 'Visitors over time'
+                    },
+                    xAxis: {
+                        categories: ['<?php echo date("j/n Y",strtotime($get['timestamp'])); ?>','<?php echo date("j/n Y"); ?>']
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Visitors'
+                        },
+                        plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#444444'
+                        }]
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return this.x +': <b>'+ this.y +' visitors</b>';
+                        }
+                    },
+                    series: [{
+                            data: [1,2]
                     }]
                 });
             });
@@ -289,7 +323,9 @@ arsort($user_browser);
                             </table>
                         </td>
                         <td colspan="2">
+                            <div id="browser-graph" style="height: 200px; margin: 0 auto;"></div>
                             <div id="os-graph" style="height: 200px; margin: 0 auto;"></div>
+                            <div id="visits-graph" style="height: 200px; margin: 0 auto;"></div>
                         </td>
                     </tr>
                 </tbody>
