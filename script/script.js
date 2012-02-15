@@ -1,15 +1,4 @@
 $(document).ready(function(){
-
-    $("#create-link img").hover(function() {
-        $(this).attr('src','style/logo_glow.png');
-    },function() {
-        $(this).attr('src','style/logo.png');
-    });
-    $("#stats-head img").hover(function() {
-        $(this).attr('src','style/logo_glow.png');
-    },function() {
-        $(this).attr('src','style/logo.png');
-    });
     
     $("input[name=url]").keypress(function(event) {
        if(event.which == 13) {

@@ -96,7 +96,6 @@ arsort($user_browser);
         <title>drng</title>
         <link rel="stylesheet" type="text/css" href="style/drngd.css" />
         <script type="text/javascript" src="script/jquery.js"></script>
-        <script type="text/javascript" src="script/script.js"></script>
         <script type="text/javascript" src="script/highcharts.js"></script>
         <script type="text/javascript">
             var browserChart, osChart, visitsChart;
