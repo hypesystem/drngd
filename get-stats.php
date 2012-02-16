@@ -83,8 +83,9 @@ if(verifyLinkKey($_GET['id'])) {
         else $user_os[$os][1]++;
     }
     
-    arsort($user_os);
-    arsort($user_browser);
+    function compare_amount($a, $b) { return $a[1] < $b[1]; }
+    usort($user_os,compare_amount);
+    usort($user_browser,compare_amount);
     
     foreach($user_browser as $k => $b) {
         if($b[0] != null) $data_browser[] = $b;
