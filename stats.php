@@ -14,9 +14,34 @@
                     
                     if(statsData.success) {
                     
+                        //visits data generation
+                        var startDate = new Date();
+                        startDate.setTime(statsData.created_at * 1000);
+                        var endDate = new Date();
+                        
+                        function reformatDate(dateString) {
+                            dArr = dateString.split("-");
+                            var newDate = new Date();
+                            newDate.setMonth(dArr[1].valueOf() - 1, dArr[2]);
+                            newDate.setYear(dArr[0]);
+                            return newDate;
+                        }
+                        
+                        var visitsData = new Array();
+                        var days = (endDate.getTime() - startDate.getTime()) / 86400000;
+                        for(var i = 0; i < days; i++) visitsData.push(0);
+                        for(var i = 0; i < statsData.visits.length; i++) {
+                            var thisDate = reformatDate(statsData.visits[i][0]);
+                            var day = Math.floor((thisDate.getTime() - startDate.getTime()) / 86400000);
+                            visitsData[day] = statsData.visits[i][1];
+                        }
+                        
+                        //set standard information
                         $("#original_link").html('<a href="'+statsData.link+'" target="_blank">'+statsData.original_url+'</a>');
-                        $("#created_at").html(statsData.created_at);
+                        $("#created_at").html(startDate.getDate()+"-"+(startDate.getMonth() + 1)+"-"+startDate.getFullYear());
 
+
+                        //make browser pie 
                         browserChart = new Highcharts.Chart({
                             chart: {
                                 renderTo: 'browser-graph',
@@ -49,6 +74,7 @@
                             }]
                         });
 
+                        //make os pie
                         osChart = new Highcharts.Chart({
                             chart: {
                                 renderTo: 'os-graph',
@@ -81,38 +107,60 @@
                             }]
                         });
 
+                        //make visitors overview
                         visitsChart = new Highcharts.Chart({
                             chart: {
                                 renderTo: 'visits-graph',
-                                defaultSeriesType: 'line',
-                                backgroundColor: '#1a1a1a'
+                                zoomType: 'x',
+                                backgroundColor: "#1a1a1a"
                             },
                             title: {
-                                text: 'Visitors over time'
+                                text: 'Visits over time'
+                            },
+                            subtitle: {
+                                text: 'Click and drag to zoom in'
                             },
                             xAxis: {
-                                categories: statsData.visits
+                                type: 'datetime',
+                                maxZoom: 14*24*3600000, //seven days
+                                title: {
+                                    text: null
+                                }
                             },
                             yAxis: {
                                 title: {
-                                    text: 'Visitors'
+                                    text: 'Visits'
                                 },
-                                plotLines: [{
-                                        value: 0,
-                                        width: 1,
-                                        color: '#444444'
-                                }]
+                                min: 0,
+                                startOnTick: false,
+                                showFirstLabel: true
+                            },
+                            tooltip: {
+                                shared: true
                             },
                             legend: {
                                 enabled: false
                             },
-                            tooltip: {
-                                formatter: function() {
-                                    return this.x +': <b>'+ this.y +' visitors</b>';
+                            plotOptions: {
+                                area: {
+                                    marker: {
+                                        enabled: false,
+                                        states: {
+                                            hover: {
+                                                enabled: true,
+                                                radius: 5
+                                            }
+                                        }
+                                    },
+                                    shadow: false
                                 }
                             },
                             series: [{
-                                    data: statsData.visits
+                                    type: 'area',
+                                    name: 'Visits',
+                                    pointInterval: 24*3600*1000, //one day
+                                    pointStart: Date.UTC(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()),
+                                    data: visitsData
                             }]
                         });
                     }

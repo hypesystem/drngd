@@ -99,7 +99,7 @@ if(verifyLinkKey($_GET['id'])) {
         $data_visits[] = array($k,$v);
     }
     
-    echo json_encode(array('success' => true, 'link' => 'http://drng.dk/'.$_GET['id'], 'created_at' => date("j. M Y h:i",strtotime($get['timestamp'])), 'original_url' => $get['href'], 'visits_day' => $visits_day, 'visits_week' => $visits_week, 'visits_month' => $visits_month, 'visits_year' => $visits_year, 'visits_total' => $visits_total, 'visits' => $data_visits, 'browsers' => $data_browser, 'os' => $data_os));
+    echo json_encode(array('success' => true, 'link' => 'http://drng.dk/'.$_GET['id'], 'created_at' => strtotime($get['timestamp']), 'original_url' => $get['href'], 'visits_day' => $visits_day, 'visits_week' => $visits_week, 'visits_month' => $visits_month, 'visits_year' => $visits_year, 'visits_total' => $visits_total, 'visits' => $data_visits, 'browsers' => $data_browser, 'os' => $data_os));
 }
 else {
     echo json_encode(array('success' => false, 'error' => 'Invalid link id given'));
