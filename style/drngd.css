@@ -106,3 +106,8 @@ a {
 .stats#output .graph-row .graph {
     width: 300px;
 }
+.stats#output th {
+    text-align: right;
+    padding-right: 10px;
+    font-weight: normal;
+}
