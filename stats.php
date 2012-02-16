@@ -142,6 +142,6 @@
                 <div id="browser-graph" class="graph"></div>
             </div>
         </div>
-        <div class="version-box">version 1.0.1.<?php include("version.log"); ?></div>
+        <div class="version-box">version 1.1.0.<?php include("version.log"); ?></div>
     </body>
 </html>
