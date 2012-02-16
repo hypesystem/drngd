@@ -83,6 +83,9 @@ if(verifyLinkKey($_GET['id'])) {
         else $user_os[$os][1]++;
     }
     
+    arsort($user_os);
+    arsort($user_browser);
+    
     foreach($user_browser as $k => $b) {
         if($b[0] != null) $data_browser[] = $b;
     }
@@ -95,8 +98,6 @@ if(verifyLinkKey($_GET['id'])) {
         $data_visits[] = array($k,$v);
     }
     
-    arsort($user_os);
-    arsort($user_browser);
     echo json_encode(array('success' => true, 'link' => 'http://drng.dk/'.$_GET['id'], 'created_at' => date("j. M Y h:i",strtotime($get['timestamp'])), 'original_url' => $get['href'], 'visits_day' => $visits_day, 'visits_week' => $visits_week, 'visits_month' => $visits_month, 'visits_year' => $visits_year, 'visits_total' => $visits_total, 'visits' => $data_visits, 'browsers' => $data_browser, 'os' => $data_os));
 }
 else {
