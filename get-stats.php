@@ -14,24 +14,29 @@ if(verifyLinkKey($_GET['id'])) {
     $visits_year = 0;
     $visits_total = 0;
     $user_os = array();
+    $user_os[] = array();
     $user_browser = array();
+    $user_browser[] = array();
+    $data_os = array();
+    $data_browser = array();
+    $data_visits = array();
     $known_os = array(
-        "Windows" => "windows",
-        "Linux" => "linux",
-        "Mac" => "macintosh",
-        "Other" => ""
-        );
-    $known_browsers = array (
-        "Internet Explorer" => "msie",
-        "Firefox" => "firefox",
-        "Netscape" => "netscape",
-        "Chrome" => "chrome",
-        "Konqueror" => "konqueror",
-        "Opera" => "opera",
-        "Safari" => "safari",
-        "Mozilla" => "mozilla",
-        "Other" => ""
-        );
+        "windows" => "Windows",
+        "linux" => "Linux",
+        "macintosh" => "Mac",
+        " " => "Other"
+    );
+    $known_browsers = array(
+        "msie" => "Internet Explorer",
+        "firefox" => "Firefox",
+        "netscape" => "Netscape",
+        "chrome" => "Chrome",
+        "konqueror" => "Konqueror",
+        "opera" => "Opera",
+        "safari" => "Safari",
+        "mozilla" => "Mozilla",
+        " " => "Other"
+    );
     $browser;
     $os;
     while($calc = mysql_fetch_assoc($get_visits)) {
@@ -57,41 +62,42 @@ if(verifyLinkKey($_GET['id'])) {
         //user agent statistics
         unset($browser);
         unset($os);
-        $words = explode(' ',strtolower($calc['user_agent']));
-        foreach($known_os as $key => $this_os) {
-            foreach($words as $word) {
-                if(!isset($os) && strpos($word,$this_os) !== false) {
-                    $os = $key;
-                }
-            }
+        
+        foreach($known_os as $key => $name) {
+            if(preg_match("@".$key."@",strtolower($calc['user_agent']))) { $os = $key; break; }
         }
-        foreach($known_browsers as $key => $br) {
-            foreach($words as $word) {
-                if(!isset($browser) && strpos($word,$br) !== false) {
-                    $browser = $key;
-                }
-            };
+        foreach($known_browsers as $key => $name) {
+            if(preg_match("@".$key."@",strtolower($calc['user_agent']))) { $browser = $key; break; }
         }
-        if(!isset($browser)) {
-            if(!isset($user_browser["Other"])) $user_browser["Other"] = 1;
-            else $user_browser["Other"]++;
+
+        if(!isset($user_browser[$browser])) {
+            $user_browser[$browser][0] = $known_browsers[$browser];
+            $user_browser[$browser][1] = 1;
         }
-        else {
-            if(!isset($user_browser[$browser])) $user_browser[$browser] = 1;
-            else $user_browser[$browser]++;
+        else $user_browser[$browser][1]++;
+
+        if(!isset($user_os[$os])) {
+            $user_os[$os][0] = $known_os[$os];
+            $user_os[$os][1] = 1;
         }
-        if(!isset($os)) {
-            if(!isset($user_os["Other"])) $user_os["Other"] = 1;
-            else $user_os["Other"]++;
-        }
-        else {
-            if(!isset($user_os[$os])) $user_os[$os] = 1;
-            else $user_os[$os]++;
-        }
+        else $user_os[$os][1]++;
     }
+    
+    foreach($user_browser as $k => $b) {
+        if($b[0] != null) $data_browser[] = $b;
+    }
+
+    foreach($user_os as $k => $o) {
+        if($o[0] != null) $data_os[] = $o;
+    }
+    
+    foreach($visits as $k => $v) {
+        $data_visits[] = array($k,$v);
+    }
+    
     arsort($user_os);
     arsort($user_browser);
-    echo json_encode(array('success' => true, 'link' => 'http://drng.dk/'.$_GET['id'], 'created_at' => date("j. M Y h:i",strtotime($get['timestamp'])), 'original_url' => $get['href'], 'visits_day' => $visits_day, 'visits_week' => $visits_week, 'visits_month' => $visits_month, 'visits_year' => $visits_year, 'visits_total' => $visits_total, 'visits' => $visits, 'browsers' => $user_browser, 'os' => $user_os));
+    echo json_encode(array('success' => true, 'link' => 'http://drng.dk/'.$_GET['id'], 'created_at' => date("j. M Y h:i",strtotime($get['timestamp'])), 'original_url' => $get['href'], 'visits_day' => $visits_day, 'visits_week' => $visits_week, 'visits_month' => $visits_month, 'visits_year' => $visits_year, 'visits_total' => $visits_total, 'visits' => $data_visits, 'browsers' => $data_browser, 'os' => $data_os));
 }
 else {
     echo json_encode(array('success' => false, 'error' => 'Invalid link id given'));

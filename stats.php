@@ -100,111 +100,109 @@ arsort($user_browser);
         <script type="text/javascript">
             var browserChart, osChart, visitsChart;
             $(document).ready(function() {
-                browserChart = new Highcharts.Chart({
-                    chart: {
-                        renderTo: 'browser-graph',
-                        backgroundColor: '#1a1a1a'
-                    },
-                    title: {
-                        text: 'Browsers used by visitors'
-                    },
-                    tooltip: {
-                        formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; }
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                color: '#FFFFFF',
-                                connectorColor: '#AAAAAA',
-                                formatter: function() {
-                                    return this.point.name;
-                                }
-                            }
-                        }
-                    },
-                    series: [{
-                        type: 'pie',
-                        name: 'Browser share',
-                        data: [
-                        <?php foreach($user_browser as $key => $val): ?>
-                            ['<?php echo $key; ?>', <?php echo $val; ?>],
-                        <?php endforeach; ?>
-                        ]
-                    }]
-                });
-                
-                osChart = new Highcharts.Chart({
-                    chart: {
-                        renderTo: 'os-graph',
-                        backgroundColor: '#1a1a1a'
-                    },
-                    title: {
-                        text: 'Operating systems used by visitors'
-                    },
-                    tooltip: {
-                        formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; }
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                color: '#FFFFFF',
-                                connectorColor: '#AAAAAA',
-                                formatter: function() {
-                                    return this.point.name;
-                                }
-                            }
-                        }
-                    },
-                    series: [{
-                        type: 'pie',
-                        name: 'OS share',
-                        data: [
-                        <?php foreach($user_os as $key => $val): ?>
-                            ['<?php echo $key; ?>', <?php echo $val; ?>],
-                        <?php endforeach; ?>
-                        ]
-                    }]
-                });
-                
-                visitsChart = new Highcharts.Chart({
-                    chart: {
-                        renderTo: 'visits-graph',
-                        defaultSeriesType: 'line',
-                        backgroundColor: '#1a1a1a'
-                    },
-                    title: {
-                        text: 'Visitors over time'
-                    },
-                    xAxis: {
-                        categories: ['<?php echo date("j/n Y",strtotime($get['timestamp'])); ?>','<?php echo date("j/n Y"); ?>']
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Visitors'
+                $.getJSON("get-stats.php", {id: "<?php echo $_GET['l']; ?>"}, function(statsData) {
+                    
+                    $("#original_link").html('<a href="'+statsData.link+'" target="_blank">'+statsData.original_url+'</a>');
+                    $("#created_at").html(statsData.created_at);
+                    
+                    browserChart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'browser-graph',
+                            backgroundColor: '#1a1a1a'
                         },
-                        plotLines: [{
-                                value: 0,
-                                width: 1,
-                                color: '#444444'
+                        title: {
+                            text: 'Browsers used by visitors'
+                        },
+                        tooltip: {
+                            formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; }
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#FFFFFF',
+                                    connectorColor: '#AAAAAA',
+                                    formatter: function() {
+                                        return this.point.name;
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            type: 'pie',
+                            name: 'Browser share',
+                            data: statsData.browsers
                         }]
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        formatter: function() {
-                            return this.x +': <b>'+ this.y +' visitors</b>';
-                        }
-                    },
-                    series: [{
-                            data: [1,2]
-                    }]
+                    });
+
+                    osChart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'os-graph',
+                            backgroundColor: '#1a1a1a'
+                        },
+                        title: {
+                            text: 'Operating systems used by visitors'
+                        },
+                        tooltip: {
+                            formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; }
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#FFFFFF',
+                                    connectorColor: '#AAAAAA',
+                                    formatter: function() {
+                                        return this.point.name;
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            type: 'pie',
+                            name: 'OS share',
+                            data: statsData.os
+                        }]
+                    });
+
+                    visitsChart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'visits-graph',
+                            defaultSeriesType: 'line',
+                            backgroundColor: '#1a1a1a'
+                        },
+                        title: {
+                            text: 'Visitors over time'
+                        },
+                        xAxis: {
+                            categories: statsData.visits
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Visitors'
+                            },
+                            plotLines: [{
+                                    value: 0,
+                                    width: 1,
+                                    color: '#444444'
+                            }]
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return this.x +': <b>'+ this.y +' visitors</b>';
+                            }
+                        },
+                        series: [{
+                                data: statsData.visits
+                        }]
+                    });
                 });
             });
         </script>
@@ -216,7 +214,13 @@ arsort($user_browser);
         </div>
         <br />
         <div id="output" class="stats">
-            <table>
+            <div class="top">Original link: <span id="original_link"></span> | Created at: <span id="created_at"></span></div>
+            <div id="visits-graph" class="graph"></div>
+            <div class="graph-row">
+                <div id="os-graph" class="graph"></div>
+                <div id="browser-graph" class="graph"></div>
+            </div>
+            <!--<table>
                 <thead>
                     <tr>
                         <th colspan="2">General information</th>
@@ -322,13 +326,11 @@ arsort($user_browser);
                             </table>
                         </td>
                         <td colspan="2">
-                            <div id="browser-graph" style="height: 200px; margin: 0 auto;"></div>
-                            <div id="os-graph" style="height: 200px; margin: 0 auto;"></div>
-                            <div id="visits-graph" style="height: 200px; margin: 0 auto;"></div>
+                            
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table>-->
         </div>
         <div class="version-box">version 1.0.1.<?php include("version.log"); ?></div>
     </body>

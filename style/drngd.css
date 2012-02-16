@@ -93,3 +93,16 @@ a {
     font-family: 'Consolas','Courier New',monospace;
     font-size: 12px;
 }
+
+.stats#output .top {
+    text-align: center;
+    margin: 20px;
+}
+.stats#output .graph {
+    display: inline-block;
+    height: 250px;
+    width: 600px;
+}
+.stats#output .graph-row .graph {
+    width: 300px;
+}
