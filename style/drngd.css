@@ -91,3 +91,7 @@ a {
 .doc#output {
     text-align: left;
 }
+.doc#output .src-link {
+    float: right;
+    font-size: 12px;
+}
