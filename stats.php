@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <base href="http://drng.dk/" />
+        <!--<base href="http://drng.dk/" />-->
         <title>drng</title>
         <link rel="stylesheet" type="text/css" href="style/drngd.css" />
         <script type="text/javascript" src="script/jquery.js"></script>
@@ -11,7 +11,6 @@
             var browserChart, osChart, visitsChart;
             $(document).ready(function() {
                 $.getJSON("get-stats.php", {id: "<?php echo $_GET['l']; ?>"}, function(statsData) {
-                    
                     if(statsData.success) {
                     
                         //visits data generation

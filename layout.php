@@ -12,6 +12,7 @@
                 <nav id="bar-menu">
                     <a href=".">Create</a>
                     <a href="!doc/why-use-it">Why use it?</a>
+                    <a href="!doc/api-documentation">API</a>
                 </nav>
                 <div id="version">
                     <a href="http://github.com/hypesystem/drngd" target="_blank">
