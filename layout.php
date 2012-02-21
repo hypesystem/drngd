@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div id="output" class="<?php echo isset($page_class) ? $page_class : "doc"; ?>">
+        <div id="container" class="doc">
             <?php echo $page_content; /*Following is generic content*/ ?>
             <h1>Why use it?</h1>
 
@@ -41,7 +41,13 @@
             it's home at GitHub.
             <a href="http://github.com/hypesystem/drngd">See the source code.</a></p></li>
             </ol>
+            
             <span class="src-link"><a href="doc/why-use-it.markdown">Get Markdown source (why-use-it.markdown)</a></span>
+        </div>
+        <br />
+        <div id="container" class="create">
+            <input type="text" name="url" value="http://url" class="inactive" id="url-input" />
+            <input type="submit" value="Shorten link" id="url-submit" />
         </div>
     </body>
 </html>
