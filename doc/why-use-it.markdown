@@ -11,7 +11,7 @@ Why use it?
 3. **Open API.** The service is accessible through an easy and open API,
    allowing other systems to easily integrate drng.dk and use it to monitor
    link popularity. Additionally the statistics are easily integrated in any
-   system. [Read about the API.](http://drng.dk/!doc/api-documentation
+   system. [Read about the API.](http://drng.dk/!doc/api-documentation)
 
 4. **Free and open-source.** In addition to being actively developed, the
    source-code for the project is publicly availible and easy to fork through

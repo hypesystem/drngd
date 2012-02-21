@@ -87,3 +87,7 @@ a {
     font-weight: normal;
     width: 45%;
 }
+
+.doc#output {
+    text-align: left;
+}
