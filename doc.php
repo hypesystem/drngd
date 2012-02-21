@@ -14,7 +14,7 @@ if(isset($_GET['n'])) {
         include_once "markdown/markdown.php";
         $file = fopen($markdown_src, "r");
         $html = Markdown(fread($file, filesize($markdown_src)));
-        echo $html.'<span class="src-link"><a href="doc/'.trim($_GET['n']).'.markdown">Get Markdown source ('.trim($_GET['n']).'.markdown)</a></span>';
+        echo $html.'<span class="src-link"><a href="doc/'.trim($_GET['n']).'.markdown" target="_blank">Get Markdown source ('.trim($_GET['n']).'.markdown)</a></span>';
     }
     else {
         echo '<span class="red">Failure!</span> No doc corresponding to name "'.trim($_GET['n']).'" found';

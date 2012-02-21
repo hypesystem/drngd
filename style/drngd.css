@@ -1,6 +1,7 @@
 body {
     background: #1a1a1a url('bg.png') repeat-x;
     text-align: center;
+    margin: 0px;
 }
 a {
     color: white;
@@ -94,4 +95,56 @@ a {
 .doc#output .src-link {
     float: right;
     font-size: 12px;
+}
+
+/* LAYOUT */
+#bar {
+    /* gradient */
+    background: rgb(160,160,160); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(160,160,160,1) 0%, rgba(51,51,51,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(160,160,160,1)), color-stop(100%,rgba(51,51,51,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(160,160,160,1) 0%,rgba(51,51,51,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(160,160,160,1) 0%,rgba(51,51,51,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(160,160,160,1) 0%,rgba(51,51,51,1) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(160,160,160,1) 0%,rgba(51,51,51,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0a0a0', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+
+    text-align: center;
+}
+
+#bar-content {
+    background: url('logo.png') no-repeat 2px -39px;
+    display: inline-block;
+    text-align: left;
+    width: 700px;
+    font-family: 'Calibri',sans-serif;
+    padding: 10px;
+}
+
+#bar-content #version {
+    display: inline-block;
+    float: right;
+    padding-top: 3px;
+}
+
+#bar-content #version, #bar-content #version a {
+    font-size: 10px;
+    color: #ddd;
+    text-decoration: none;
+}
+#bar-content .other a:hover {
+    color: white;
+}
+#bar-menu {
+    display: inline-block;
+    margin-left: 160px;
+}
+#bar-menu a {
+    padding: 3px 7px;
+    margin: 0 3px;
+    background: black; /* Older browsers */
+    background: rgba(0,0,0,0.6);
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 0px 0px 2px black;
 }
