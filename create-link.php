@@ -1,6 +1,6 @@
 <?php
 if(!isset($_GET['url']) || $_GET['url'] == "" || $_GET['url'] == "http://url") {
-    echo '<span class="red">Error!</span> No url passed.';
+    echo json_encode(array('success' => false, 'error' => 'No url supplied'));
 }
 else {
     $match;
@@ -13,7 +13,7 @@ else {
         $match = "http://".$_GET['url'];
     }
     else {
-        echo '<span class="red">Error!</span> Entered address is not valid url.';
+        echo json_encode(array('success' => false, 'error' => 'Url supplied is invalid'));
     }
     
     if(isset($match)) {
@@ -21,9 +21,7 @@ else {
         mysql_query("INSERT INTO link (href,timestamp) VALUES ('".addslashes($match)."','".date("Y-m-d H:i:s")."')") or die(mysql_error());
         $get = mysql_query("SELECT * FROM link WHERE href='".addslashes($match)."' ORDER BY id DESC") or die(mysql_error());
         $get = mysql_fetch_assoc($get);
-        echo '<span class="green">Success!</span> Your short link is: <a href="http://drng.dk/'.base_convert($get['id'],10,36).'" target="_blank">drng.dk/'.base_convert($get['id'],10,36).'</a> (<a href="#" id="copy-link">click here to copy</a>)<br />';
-        echo 'To track and view statistics for your link, see <a href="http://drng.dk/!stats/'.base_convert($get['id'],10,36).'">http://drng.dk/!stats/'.base_convert($get['id'],10,36).'</a>';
-        echo '<script type="text/javascript">copyLink.setText("http://drng.dk/'.base_convert($get['id'],10,36).'"); copyLink.glue("copy-link");</script>';
+        echo json_encode(array('success' => true, 'link' => array('id' => base_convert($get['id'],10,36),'link' => 'http://drng.dk/'.base_convert($get['id'],10,36))));
     }
 }
 ?>

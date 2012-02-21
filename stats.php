@@ -1,222 +1,202 @@
-<?php include("func.php"); ?>
-<?php if(verifyLinkKey($_GET['l'])): ?>
-<?php
-include('mysql_connect.php');
-//get link
-$get = mysql_query("SELECT * FROM link WHERE id='".intval($_GET['l'],36)."' LIMIT 1") or die(mysql_error());
-$get = mysql_fetch_assoc($get);
-$get_visits = mysql_query("SELECT * FROM link_visit WHERE link_id = '".intval($_GET['l'],36)."' ORDER BY timestamp ASC") or die(mysql_error());
-
-$visits_day = 0;
-$visits_week = 0;
-$visits_month = 0;
-$visits_year = 0;
-$visits_total = 0;
-$user_os = array();
-$user_browser = array();
-$known_os = array(
-    "Windows" => "windows",
-    "Linux" => "linux",
-    "Mac" => "macintosh",
-    "Other" => ""
-    );
-$known_browsers = array (
-    "Internet Explorer" => "msie",
-    "Firefox" => "firefox",
-    "Netscape" => "netscape",
-    "Chrome" => "chrome",
-    "Konqueror" => "konqueror",
-    "Opera" => "opera",
-    "Safari" => "safari",
-    "Mozilla" => "mozilla",
-    "Other" => ""
-    );
-$browser;
-$os;
-while($calc = mysql_fetch_assoc($get_visits)) {
-    //visit statistics
-    $visits_total++;
-    $time = time() - strtotime($calc['timestamp']);
-    if($time < 31536000) {
-        $visits_year++;
-        if($time < 2592000) {
-            $visits_month++;
-            if($time < 604800) {
-                $visits_week++;
-                if($time < 86400) {
-                    $visits_day++;
-                }
-            }
-        }
-    }
-    
-    //user agent statistics
-    unset($browser);
-    unset($os);
-    $words = explode(' ',strtolower($calc['user_agent']));
-    foreach($known_os as $key => $this_os) {
-        foreach($words as $word) {
-            if(!isset($os) && strpos($word,$this_os) !== false) {
-                $os = $key;
-            }
-        }
-    }
-    foreach($known_browsers as $key => $br) {
-        foreach($words as $word) {
-            if(!isset($browser) && strpos($word,$br) !== false) {
-                $browser = $key;
-            }
-        };
-    }
-    if(!isset($browser)) {
-        if(!isset($user_browser["Other"])) $user_browser["Other"] = 1;
-        else $user_browser["Other"]++;
-    }
-    else {
-        if(!isset($user_browser[$browser])) $user_browser[$browser] = 1;
-        else $user_browser[$browser]++;
-    }
-    if(!isset($os)) {
-        if(!isset($user_os["Other"])) $user_os["Other"] = 1;
-        else $user_os["Other"]++;
-    }
-    else {
-        if(!isset($user_os[$os])) $user_os[$os] = 1;
-        else $user_os[$os]++;
-    }
-}
-arsort($user_os);
-arsort($user_browser);
-?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
-        <base href="http://drng.dk/" />
+        <!--<base href="http://drng.dk/" />-->
         <title>drng</title>
-        <link rel="stylesheet" type="text/css" href="http://drng.dk/style/drngd.css" />
-        <script type="text/javascript" src="http://drng.dk/script/jquery.js"></script>
-        <script type="text/javascript" src="http://drng.dk/script/script.js"></script>
+        <link rel="stylesheet" type="text/css" href="style/drngd.css" />
+        <script type="text/javascript" src="script/jquery.js"></script>
+        <script type="text/javascript" src="script/highcharts.js"></script>
+        <script type="text/javascript">
+            var browserChart, osChart, visitsChart;
+            $(document).ready(function() {
+                $.getJSON("get-stats.php", {id: "<?php echo $_GET['l']; ?>"}, function(statsData) {
+                    
+                    if(statsData.success) {
+                    
+                        //visits data generation
+                        var startDate = new Date();
+                        startDate.setTime(statsData.created_at * 1000);
+                        var endDate = new Date();
+                        
+                        function reformatDate(dateString) {
+                            dArr = dateString.split("-");
+                            var newDate = new Date();
+                            newDate.setMonth(dArr[1].valueOf() - 1, dArr[2]);
+                            newDate.setYear(dArr[0]);
+                            return newDate;
+                        }
+                        
+                        var visitsData = new Array();
+                        var days = (endDate.getTime() - startDate.getTime()) / 86400000;
+                        for(var i = 0; i < days; i++) visitsData.push(0);
+                        for(var i = 0; i < statsData.visits.length; i++) {
+                            var thisDate = reformatDate(statsData.visits[i][0]);
+                            var day = Math.floor((thisDate.getTime() - startDate.getTime()) / 86400000);
+                            visitsData[day] = statsData.visits[i][1];
+                        }
+                        
+                        //set standard information
+                        $("#original_link").html('<a href="'+statsData.link+'" target="_blank">'+statsData.original_url+'</a>');
+                        $("#created_at").html(startDate.getDate()+"-"+(startDate.getMonth() + 1)+"-"+startDate.getFullYear());
+
+
+                        //make browser pie 
+                        browserChart = new Highcharts.Chart({
+                            chart: {
+                                renderTo: 'browser-graph',
+                                backgroundColor: '#1a1a1a'
+                            },
+                            title: {
+                                text: 'Browsers used by visitors'
+                            },
+                            tooltip: {
+                                formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; }
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        color: '#FFFFFF',
+                                        connectorColor: '#AAAAAA',
+                                        formatter: function() {
+                                            return this.point.name;
+                                        }
+                                    }
+                                }
+                            },
+                            series: [{
+                                type: 'pie',
+                                name: 'Browser share',
+                                data: statsData.browsers
+                            }]
+                        });
+
+                        //make os pie
+                        osChart = new Highcharts.Chart({
+                            chart: {
+                                renderTo: 'os-graph',
+                                backgroundColor: '#1a1a1a'
+                            },
+                            title: {
+                                text: 'Operating systems used by visitors'
+                            },
+                            tooltip: {
+                                formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; }
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        color: '#FFFFFF',
+                                        connectorColor: '#AAAAAA',
+                                        formatter: function() {
+                                            return this.point.name;
+                                        }
+                                    }
+                                }
+                            },
+                            series: [{
+                                type: 'pie',
+                                name: 'OS share',
+                                data: statsData.os
+                            }]
+                        });
+
+                        //make visitors overview
+                        visitsChart = new Highcharts.Chart({
+                            chart: {
+                                renderTo: 'visits-graph',
+                                zoomType: 'x',
+                                backgroundColor: "#1a1a1a"
+                            },
+                            title: {
+                                text: 'Visits over time'
+                            },
+                            subtitle: {
+                                text: 'Click and drag to zoom in'
+                            },
+                            xAxis: {
+                                type: 'datetime',
+                                maxZoom: 14*24*3600000, //seven days
+                                title: {
+                                    text: null
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Visits'
+                                },
+                                min: 0,
+                                startOnTick: false,
+                                showFirstLabel: true
+                            },
+                            tooltip: {
+                                shared: true
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            plotOptions: {
+                                area: {
+                                    marker: {
+                                        enabled: false,
+                                        states: {
+                                            hover: {
+                                                enabled: true,
+                                                radius: 5
+                                            }
+                                        }
+                                    },
+                                    shadow: false
+                                }
+                            },
+                            series: [{
+                                    type: 'area',
+                                    name: 'Visits',
+                                    pointInterval: 24*3600*1000, //one day
+                                    pointStart: Date.UTC(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()),
+                                    data: visitsData
+                            }]
+                        });
+                    }
+                    else {
+                        $("#output").html('<span class="red">Error fetching data!</span> '+statsData.error+'.');
+                        $("#output").css('text-align','center');
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <div id="stats-head">
-            <a href="http://drng.dk"><img src="http://drng.dk/style/logo.png" alt="deranged" title="deranged" /></a>
+            <a href="http://drng.dk"><img src="style/logo.png" alt="deranged" title="deranged" /></a>
             <p>Statistics for <a href="http://drng.dk/<?php echo $_GET['l']; ?>" target="_blank">drng.dk/<?php echo $_GET['l']; ?></a></p>
         </div>
         <br />
         <div id="output" class="stats">
-            <table>
-                <thead>
+            <div class="top">
+                <table>
                     <tr>
-                        <th colspan="2">General information</th>
-                        <th colspan="2">Browser and OS</th>
+                        <th>Original link:</th>
+                        <td id="original_link"></td>
                     </tr>
-                </thead>
-                <tbody>
                     <tr>
-                        <td colspan="2">
-                            This section contains general information about the link.
-                            <table class="data" id="info-data">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Link information</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="key">Created on:</td>
-                                        <td class="value"><?php echo date("j/n Y h:i",strtotime($get['timestamp'])); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="key">Links to:</td>
-                                        <td class="value"><a href="http://drng.dk/<?php echo $_GET['l']; ?>" target="_blank"><?php echo $get['href']; ?></a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td colspan="2">
-                            The following are statistics regarding operating system and browser for people visiting this link.<br/>
-                            <table class="data" id="browser-data">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Browser</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php foreach($user_browser as $key => $val): ?>
-                                    <tr>
-                                        <td class="key"><?php echo $key; ?>:</td>
-                                        <td class="value"><?php echo number_format(100 * $val / $visits_total,1); ?>% (<?php echo $val; ?>)</td>
-                                    </tr>
-                                <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <table class="data" id="os-data">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Operating System</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php foreach($user_os as $key => $val): ?>
-                                    <tr>
-                                        <td class="key"><?php echo $key; ?>:</td>
-                                        <td class="value"><?php echo (100 * $val / $visits_total); ?>% (<?php echo $val; ?>)</td>
-                                    </tr>
-                                <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </td>
+                        <th>Created at:</th>
+                        <td id="created_at"></td>
                     </tr>
-                </tbody>
-            </table>
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="2">Visits/time</th>
-                        <td colspan="2"></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="2">The statistics show how popular the link is.
-                            <table class="data" id="visits-data">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Visits</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Last day:</td>
-                                        <td><?php echo $visits_day; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Last week:</td>
-                                        <td><?php echo $visits_week; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Last month:</td>
-                                        <td><?php echo $visits_month; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Last year:</td>
-                                        <td><?php echo $visits_year; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total visits:</td>
-                                        <td><?php echo $visits_total; ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                </table>
+            </div>
+            <div id="visits-graph" class="graph"></div>
+            <div class="graph-row">
+                <div id="os-graph" class="graph"></div>
+                <div id="browser-graph" class="graph"></div>
+            </div>
         </div>
-        <div class="version-box">version 1.0.1.<?php include("version.log"); ?></div>
+        <div class="version-box">version 1.1.0.<?php include("version.log"); ?></div>
     </body>
 </html>
-<?php else: ?>
-<?php header("Location: http://drng.dk"); ?>
-<?php endif; ?>
