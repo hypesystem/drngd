@@ -2,3 +2,5 @@
 nbproject/
 version.log
 mysql_connect.php
+/version.log
+/mysql_connect.php
