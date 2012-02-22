@@ -1,0 +1,1 @@
+<?php header('Location: http://drng.dk/!doc/api-documentation'); ?>
