@@ -20,7 +20,6 @@
                         startDate.setTime(createdDate.getTime() - (createdDate.getTime() % 86400000));
                         var endDate = new Date();
                         endDate.setTime(endDate.getTime() - (endDate.getTime() % 86400000));
-                        alert(endDate.getDate()+" "+(endDate.getMonth() + 1));
                         
                         function reformatDate(dateString) {
                             dArr = dateString.split("-");
@@ -31,9 +30,7 @@
                         }
                         
                         var visitsData = new Array();
-                        var days = (endDate.getTime() - startDate.getTime()) / 86400000;
-                        alert(days);
-                        days++;
+                        var days = 1 + ((endDate.getTime() - startDate.getTime()) / 86400000);
                         for(var i = 0; i < days; i++) visitsData.push(0);
                         for(var i = 0; i < statsData.visits.length; i++) {
                             var thisDate = reformatDate(statsData.visits[i][0]);
