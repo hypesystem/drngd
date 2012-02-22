@@ -36,6 +36,7 @@ a {
 #url-input, #url-submit {
     margin-top: 50px;
     font-size: 18px;
+    font-family: 'Calibri',sans-serif;
 }
 #url-submit {
     padding: 8px;
