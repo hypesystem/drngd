@@ -1,1 +1,0 @@
-git describe --all --long | tr "-" " " | awk '{print $3}' > version.log
