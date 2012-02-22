@@ -1,5 +1,5 @@
 <?php
-include("func.php");
+include("sys/func.php");
 if(verifyLinkKey($_GET['v'])) {
     $id = intval($_GET['v'],36);
     include('mysql_connect.php');
@@ -10,33 +10,11 @@ if(verifyLinkKey($_GET['v'])) {
     header('Location: '.$url['href']);
 }
 else {
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <base href="http://drng.dk/" />
-    <title>drng</title>
-    <link rel="stylesheet" type="text/css" href="style/drngd.css" />
-    <script type="text/javascript" src="script/jquery.js"></script>
-    <script type="text/javascript" src="script/create.js"></script>
-    <script type="text/javascript" src="clip/ZeroClipboard.js"></script>
-    <script type="text/javascript">
-        ZeroClipboard.setMoviePath( 'clip/ZeroClipboard.swf' );
-        var copyLink = new ZeroClipboard.Client();
-    </script>
-</head>
-<body>
-    <div id="create-link">
-        <a href="http://drng.dk"><img src="style/logo.png" alt="deranged" title="deranged" /></a>
-        <input type="text" name="url" value="http://url" class="inactive" />
-        <input type="submit" value="Shorten link" />
-    </div>
-    <br />
-    <div id="output" class="create">
-
-    </div>
-    <div class="version-box">version 1.1.0.<?php include("version.log"); ?></div>
-</body>
-</html>
-<?php } ?>
+    if(!isset($_GET['s'])) $_GET['s'] = 'create';
+    if(file_exists("sys/".trim($_GET['s']).".php")) include_once "sys/".trim($_GET['s']).".php";
+    else {
+        $page_content = '<span class="red">Failure!</span> Module requested does not exist ('.trim($_GET['s'].')');
+        $page_title = 'Error: Module not found';
+    }
+    include_once "style/layout.php";
+} ?>

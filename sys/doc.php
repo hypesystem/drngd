@@ -1,29 +1,21 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>drng</title>
-        <link rel="stylesheet" type="text/css" href="style/drngd.css" />
-    </head>
-    <body>
-        <div id="output" class="doc">
 <?php
+$page_content = "";
 if(isset($_GET['n'])) {
     $markdown_src = "doc/".trim($_GET['n']).".markdown";
     if(file_exists($markdown_src)) {
-        include_once "markdown/markdown.php";
+        include_once "lib/markdown.php";
         $file = fopen($markdown_src, "r");
         $html = Markdown(fread($file, filesize($markdown_src)));
-        echo $html.'<span class="src-link"><a href="doc/'.trim($_GET['n']).'.markdown" target="_blank">[Source: '.trim($_GET['n']).'.markdown]</a></span>';
+        $page_content = $html.'<span class="src-link"><a href="doc/'.trim($_GET['n']).'.markdown" target="_blank">[Source: '.trim($_GET['n']).'.markdown]</a></span>';
+        $page_title = 'doc: '.trim($_GET['n']);
     }
     else {
-        echo '<span class="red">Failure!</span> No doc corresponding to name "'.trim($_GET['n']).'" found';
+        $page_content = '<span class="red">Failure!</span> No doc corresponding to name "'.trim($_GET['n']).'" found';
+        $page_title = 'Error: doc not found';
     }
 }
 else {
-    echo '<span class="red">Failure!</span> No doc name provided';
+    $page_content = '<span class="red">Failure!</span> No doc name provided';
+    $page_title = 'Error: no doc name provided';
 }
 ?>
-        </div>
-    </body>
-</html>

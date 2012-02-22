@@ -1,7 +1,7 @@
 <?php
 include("func.php");
 if(verifyLinkKey($_GET['id'])) {
-    include('mysql_connect.php');
+    include_once '../mysql_connect.php';
     //get link
     $get = mysql_query("SELECT * FROM link WHERE id='".intval($_GET['id'],36)."' LIMIT 1") or die(mysql_error());
     $get = mysql_fetch_assoc($get);
