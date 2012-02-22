@@ -14,9 +14,13 @@
                     if(statsData.success) {
                     
                         //visits data generation
+                        var createdDate = new Date();
+                        createdDate.setTime(statsData.created_at * 1000);
                         var startDate = new Date();
-                        startDate.setTime(statsData.created_at * 1000);
+                        startDate.setTime(createdDate.getTime() - (createdDate.getTime() % 86400000));
                         var endDate = new Date();
+                        endDate.setTime(endDate.getTime() - (endDate.getTime() % 86400000));
+                        alert(endDate.getDate()+" "+(endDate.getMonth() + 1));
                         
                         function reformatDate(dateString) {
                             dArr = dateString.split("-");
@@ -28,6 +32,8 @@
                         
                         var visitsData = new Array();
                         var days = (endDate.getTime() - startDate.getTime()) / 86400000;
+                        alert(days);
+                        days++;
                         for(var i = 0; i < days; i++) visitsData.push(0);
                         for(var i = 0; i < statsData.visits.length; i++) {
                             var thisDate = reformatDate(statsData.visits[i][0]);
@@ -37,7 +43,7 @@
                         
                         //set standard information
                         $("#original_link").html('<a href="'+statsData.link+'" target="_blank">'+statsData.original_url+'</a>');
-                        $("#created_at").html(startDate.getDate()+"-"+(startDate.getMonth() + 1)+"-"+startDate.getFullYear());
+                        $("#created_at").html(createdDate.getDate()+"-"+(createdDate.getMonth() + 1)+"-"+createdDate.getFullYear()+" "+createdDate.getHours()+":"+createdDate.getMinutes());
 
 
                         //make browser pie 

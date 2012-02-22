@@ -1,10 +1,9 @@
-html { height: 100%; background: rgb(26,26,26); }
+html { height: 100%; background: rgb(26,26,26); } /*Old browsers*/
 body {
     /*background: #1a1a1a url('bg.png') repeat-x;*/
     min-height: 100%;
     
     /*gradient*/
-    background: rgb(26,26,26); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(26,26,26,1) 200px, rgba(26,26,26,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(200px,rgba(26,26,26,1)), color-stop(100%,rgba(26,26,26,1))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 200px, rgba(26,26,26,1) 100%); /* Chrome10+,Safari5.1+ */
