@@ -3,6 +3,6 @@
 RewriteEngine on
 # RewriteOptions Inherit
 
-RewriteRule ^([a-z0-9]+)$ v.php?v=$1
-RewriteRule ^\!stats\/([a-z0-9]+)$ stats.php?l=$1
-RewriteRule ^\!doc\/([aA-zZ0-9\-]+)$ doc.php?n=$1
+RewriteRule ^([a-z0-9]+)$ index.php?v=$1
+RewriteRule ^\!stats\/([a-z0-9]+)$ index.php?s=stats&l=$1
+RewriteRule ^\!doc\/([aA-zZ0-9\-]+)$ index.php?s=doc&n=$1
