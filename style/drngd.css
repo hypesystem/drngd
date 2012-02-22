@@ -1,5 +1,19 @@
+html { height: 100%; background: rgb(26,26,26); }
 body {
-    background: #1a1a1a url('bg.png') repeat-x;
+    /*background: #1a1a1a url('bg.png') repeat-x;*/
+    min-height: 100%;
+    
+    /*gradient*/
+    background: rgb(26,26,26); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(26,26,26,1) 200px, rgba(26,26,26,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(200px,rgba(26,26,26,1)), color-stop(100%,rgba(26,26,26,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 200px, rgba(26,26,26,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 200px, rgba(26,26,26,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 200px, rgba(26,26,26,1) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 200px, rgba(26,26,26,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#1a1a1a',GradientType=0 ); /* IE6-9 */
+    background-repeat: no-repeat;
+
     text-align: center;
     margin: 0px;
 }
