@@ -4,3 +4,7 @@ version.log
 mysql_connect.php
 /version.log
 /mysql_connect.php
+/sys/mysql_connect.php
+sys/mysql_connect.php
+sys/version.log
+/sys/version.log
