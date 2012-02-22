@@ -54,28 +54,32 @@ a {
     color: white;
     font-family: 'Calibri',sans-serif;
 }
-.stats#output table {
+.stats#container table {
     width: 100%;
+    margin-bottom: 10px;
 }
-.stats#output .graph {
+.stats#container .graph {
     display: inline-block;
     height: 250px;
     width: 600px;
 }
-.stats#output .graph-row .graph {
+.stats#container .graph-row .graph {
     width: 300px;
 }
-.stats#output th {
+.stats#container th {
     text-align: right;
     padding-right: 10px;
     font-weight: normal;
     width: 43%;
 }
-
-.doc#output, .doc#container {
+.stats#container td {
     text-align: left;
 }
-.doc#output .src-link, .doc#container .src-link {
+
+.doc#container {
+    text-align: left;
+}
+.doc#container .src-link {
     float: right;
     font-size: 12px;
 }
@@ -99,6 +103,7 @@ a {
     box-shadow: 0px 0px 2px black, 0px 0px 5px black, 0px 0px 10px black;
     left: 0;
     top: 0;
+    z-index: 3;
 }
 
 #bar-content {
