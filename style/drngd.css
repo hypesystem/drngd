@@ -80,10 +80,8 @@ a {
     font-family: 'Consolas','Courier New',monospace;
     font-size: 12px;
 }
-
-.stats#output .top {
-    text-align: center;
-    margin: 20px;
+.stats#output table {
+    width: 100%;
 }
 .stats#output .graph {
     display: inline-block;
@@ -97,7 +95,7 @@ a {
     text-align: right;
     padding-right: 10px;
     font-weight: normal;
-    width: 45%;
+    width: 43%;
 }
 
 .doc#output, .doc#container {
