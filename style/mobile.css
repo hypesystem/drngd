@@ -1,0 +1,119 @@
+html { height: 100%; max-width: 100%; background: rgb(26,26,26); }
+body {
+    margin: 0;
+    margin-bottom: 20px;
+    width: 100%;
+    min-height: 100%;
+    font-family: 'Calibri', sans-serif;
+    color: white;
+    
+    /*gradient*/
+    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(26,26,26,1) 125px, rgba(26,26,26,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(125px,rgba(26,26,26,1)), color-stop(100%,rgba(26,26,26,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 125px, rgba(26,26,26,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 125px, rgba(26,26,26,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 125px, rgba(26,26,26,1) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(26,26,26,1) 125px, rgba(26,26,26,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#1a1a1a',GradientType=0 ); /* IE6-9 */
+    background-repeat: no-repeat;
+    font-size: 14px;
+}
+a {
+    color: white;
+}
+#bar {
+    background: url('imgs/logo.png') no-repeat black 0 -20px;
+    border-bottom: 1px solid white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+#bar-menu a {
+    text-decoration: none;
+    background: #222;
+    box-shadow: 0px 0px 2px #222;
+    padding: 3px;
+    border-radius: 5px;
+    display: inline-block;
+}
+#bar-menu a:hover {
+    box-shadow: 0px 0px 2px #444;
+}
+#version a {
+    font-size: 10px;
+    color: #999;
+    text-decoration: none;
+}
+#bar-content {
+    text-align: right;
+    padding: 10px;
+}
+#container {
+    padding: 90px 5px 5px 5px;
+}
+#output {
+    padding-top: 20px;
+}
+.red {
+    font-weight: bold;
+    color: red;
+}
+.green {
+    font-weight: bold;
+    color: green;
+}
+.create#container {
+    text-align: center;
+}
+#url-input {
+    padding: 10px;
+    width: 175px;
+}
+#url-input.inactive {
+    color: #777;
+}
+#url-submit {
+    padding: 8px;
+}
+#pc-version-link {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    padding: 6px;
+    background: rgb(26,26,26);
+    background: rgba(26,26,26,0.8);
+}
+#pc-version-link a {
+    color: white;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0;
+}
+p {
+    margin-top: 0;
+}
+.doc#container .src-link {
+    text-align: right;
+}
+.stats#container {
+    text-align: center;
+}
+.stats#container .graph {
+    height: 200px;
+    margin-bottom: 10px;
+}
+.stats#container table {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.stats#container th {
+    text-align: right;
+    width: 50%;
+    vertical-align: top;
+}
+.stats#container td {
+    text-align: left;
+}

@@ -6,7 +6,7 @@ if(isset($_GET['n'])) {
         include_once "lib/markdown.php";
         $file = fopen($markdown_src, "r");
         $html = Markdown(fread($file, filesize($markdown_src)));
-        $page_content = $html.'<span class="src-link"><a href="doc/'.trim($_GET['n']).'.markdown" target="_blank">[Source: '.trim($_GET['n']).'.markdown]</a></span>';
+        $page_content = $html.'<div class="src-link"><a href="doc/'.trim($_GET['n']).'.markdown" target="_blank">[Source: '.trim($_GET['n']).'.markdown]</a></div>';
         $page_title = 'doc: '.trim($_GET['n']);
     }
     else {
