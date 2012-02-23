@@ -4,7 +4,8 @@
         <meta charset="utf-8" />
         <!--<base href="http://drng.dk/" />-->
         <title><?php echo $page_title; ?> | drng.dk</title>
-        <link rel="stylesheet" type="text/css" href="style/drngd.css" />
+        <link rel="stylesheet" media="screen and (min-width: 701px)" type="text/css" href="style/drngd.css" />
+        <!--<link rel="stylesheet" media="only screen and (max-width: 700px)" type="text/css" href="style/mobile.css" />-->
         <?php foreach($scripts as $s): ?>
             <script type="text/javascript" src="<?php echo $s; ?>"></script>
         <?php endforeach; ?>
