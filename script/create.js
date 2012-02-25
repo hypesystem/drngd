@@ -1,6 +1,6 @@
 $(document).ready(function(){
     
-    ZeroClipboard.setMoviePath( 'clip/ZeroClipboard.swf' );
+    ZeroClipboard.setMoviePath( 'lib/zeroclipboard/ZeroClipboard.swf' );
     var copyLink = new ZeroClipboard.Client();
     
     $("#url-input").keypress(function(event) {
@@ -20,10 +20,11 @@ $(document).ready(function(){
         $.getJSON("api/create-link.php", {url: $("#url-input").attr('value')}, function(createData) {
             if(createData.success) {
                 $("#output").html(
-                    '<span class="green">Success!</span> Your short link is: <a href="'+createData.link.link+'" target="_blank">drng.dk/'+createData.link.id+'</a> (<a href="#" id="copy-link">click here to copy</a>)<br />'+
-                    'To track and view statistics for your link, see <a href="http://drng.dk/!stats/'+createData.link.id+'">drng.dk/!stats/'+createData.link.id+'</a>'+
-                    '<script type="text/javascript">copyLink.setText("http://drng.dk/'+createData.link.id+'"); copyLink.glue("copy-link");</script><br /><br />'
+                    '<span class="green">Success!</span> Your short link is: <a href="'+createData.link+'" target="_blank">drng.dk/'+createData.id+'</a> (<a href="#" id="copy-link">click here to copy</a>)<br />'+
+                    'To track and view statistics for your link, see <a href="http://drng.dk/!stats/'+createData.id+'">drng.dk/!stats/'+createData.id+'</a>'
                 );
+                copyLink.setText('http://drng.dk/'+createData.id);
+                copyLink.glue("copy-link");
             }
             else {
                 $("#output").html('<span class="red">Failure!</span> '+createData.error);

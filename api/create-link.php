@@ -21,7 +21,7 @@ else {
         mysql_query("INSERT INTO link (href,timestamp) VALUES ('".addslashes($match)."','".date("Y-m-d H:i:s")."')") or die(mysql_error());
         $get = mysql_query("SELECT * FROM link WHERE href='".addslashes($match)."' ORDER BY id DESC") or die(mysql_error());
         $get = mysql_fetch_assoc($get);
-        echo json_encode(array('success' => true, 'link' => array('id' => base_convert($get['id'],10,36),'link' => 'http://drng.dk/'.base_convert($get['id'],10,36))));
+        echo json_encode(array('success' => true, 'id' => base_convert($get['id'],10,36),'link' => 'http://drng.dk/'.base_convert($get['id'],10,36)));
     }
 }
 ?>
