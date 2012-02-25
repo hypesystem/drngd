@@ -18,7 +18,7 @@
                 </nav>
                 <div id="version">
                     <a href="http://github.com/hypesystem/drngd" target="_blank">
-                        1.1.1.<?php if(file_exists("sys/version.log")) include("sys/version.log"); else echo "null"; ?>
+                        1.2.0.<?php if(file_exists("sys/version.log")) include("sys/version.log"); else echo "null"; ?>
                     </a>
                 </div>
             </div>
