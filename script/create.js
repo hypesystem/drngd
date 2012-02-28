@@ -7,6 +7,7 @@ $(document).ready(function(){
        if(event.which == 13) {
            $("#url-submit").click();
        }
+       else if($(this).val() == "http://url") $(this).click();
     });
     
     $("#url-input").click(function() {
