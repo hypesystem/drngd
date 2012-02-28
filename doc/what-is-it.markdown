@@ -20,4 +20,13 @@ drng.dk uses several third-party libraries for it's services:
  * ZeroClipboard provides a link for copying the url of a link created.
  * PHP Markdown translates the Markdown docs (like this one) into regular HTML,
    making it look nice and fancy.
- * Highlight.js highlights the code in the [API](http://api.drng.dk) sectino.
+ * Highlight.js highlights the code in the [API](http://api.drng.dk) section.
+
+Fonts
+-----
+
+The fonts used on the site are:
+
+ * **Corbel**: Headers and logo font.
+ * **Calibri**: Normal text font.
+ * **Consolas**: Code (monospace) font.
