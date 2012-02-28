@@ -16,6 +16,7 @@ $(document).ready(function(){
     });
     
     $("#url-submit").click(function() {
+        copyLink.hide();
         $(this).attr("disabled",true);
         $("#output").hide();
         $.getJSON("api/create-link.php", {url: $("#url-input").attr('value')}, function(createData) {
