@@ -6,6 +6,9 @@
         <title><?php echo $page_title; ?> | drng.dk</title>
         <link rel="stylesheet" <?php /*media="screen and (min-width: 701px)"*/ ?> type="text/css" href="style/drngd.css" />
         <?php /*<link rel="stylesheet" media="only screen and (max-width: 700px)" type="text/css" href="style/mobile.css" />*/ ?>
+        <?php foreach($stylesheets as $s): ?>
+            <link rel="stylesheet" type="text/css" href="<?php echo $s; ?>"></script>
+        <?php endforeach; ?>
         <?php foreach($scripts as $s): ?>
             <script type="text/javascript" src="<?php echo $s; ?>"></script>
         <?php endforeach; ?>

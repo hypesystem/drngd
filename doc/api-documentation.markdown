@@ -1,71 +1,117 @@
 API Documentation
 =================
 
-There are currently only two availible API calls: **create-link** and 
-**get-stats**. They are called by accessing http://api.drng.dk/create-link.php
-and http://api.drng.dk/get-stats.php, respectively.
+[create-link]: http://api.drng.dk/create-link.php "create-link API call"
+[get-stats]: http://api.drng.dk/get-stats.php "get-stats API call"
+
+There are currently only two availible API calls: [**create-link**][create-link]
+and [**get-stats**][get-stats]. They are called by accessing
+[http://api.drng.dk/create-link.php][create-link] and
+[http://api.drng.dk/get-stats.php][get-stats], respectively.
 
 An API call takes its arguments in GET and returns a JSON object, that can
 easily be interpreted with jQuery, cURL or the likes. The first (and only
 constant) element of the object is the "success" boolean. This indicates whether
 your request was succesful or not.
 
-If it was *not* successful, (success == true), there will be an "error"-element
+If it was *not* successful, (`success == true`), there will be an `error`-element
 as well, detailing what went wrong. Hence, you should always check for the
 success of a call as a first thing.
 
-> Example of wrong call jQuery
 > Example of wrong call cURL
+
+An example of a faulty call with jQuery could be:
+
+    $.get("http://api.drng.dk/get-stats.php", {url: "http://drng.dk/qz"}, function(data) {
+        if(!data.success) alert(data.error);
+        else alert("#WINNING");
+    }
+
+This would result in a popup-box with an error-message telling you "Invalid link
+id given". Why? Because get-stats.php does not take an URL, it takes **only**
+the id.
 
 create-link
 -----------
 
-The create-link call takes *one* argument: "url". The call is really quite
+The create-link call takes *one* argument: `url`. The call is really quite
 straight-forward.
 
-It returns an object containing a "link" (full short link) and an "id" (id of
+It returns an object containing a `link` (full short link) and an `id` (id of
 link, the last part of short link, used to find stats etc.). The id is the most
 important part to save, the link is merely there for convenience. The full
 object could look something like this:
 
     {
-        "success": true,                //the call was succesful
-        "id": "4g",                     //your id is 4g
-        "link": "http:\/\/drng.dk\/4g"  //your short link in full
+        "success": true,
+        "id": "4g",
+        "link": "http:\/\/drng.dk\/4g"
     }
 
-> Correct call using jQuery
+A correct call with jQuery would looke something like this:
+
+    $.get("http://api.drng.dk/create-link.php", {url: "http://deranged.dk"}, function(data) {
+        if(data.success)
+            alert("Your link has been succesfully created!\n"+
+                "Your short link is: "+data.link);
+        else
+            alert("Oops! Something went wrong with the link creation!\n"+
+                data.error);
+    }
 
 get-stats
 ---------
 
-The get-stats call takes *one* argument: "id". This is the id provided when
+The get-stats call takes *one* argument: `id`. This is the id provided when
 creating a link (see above).
 
 It returns an object containing quite some information - all the information
 that is relevant about the link, actually.
 
-An example object could look like the following (each line commented):
+An example object could look like the following:
 
     {
-        "success": true,                        //your call was succesful
-        "link": "http:\/\/drng.dk\/4g",         //short link in full
-        "created_at": 1330211075,               //time of creation UNIX timestamp (seconds)
-        "original_url": "http:\/\/google.com",  //url link leads to
-        "visits_day": 3,                        //visis last 24h
-        "visits_week": 3,                       //visits last 7*24h
-        "visits_month": 3,                      //visits last 31*24h
-        "visits_year": 3,                       //visits last 365*24h
-        "visits": [                             //array of all visits data
-            ["2012-02-26",3]                    //[0]: Date in string; [1]: Visitors on day
+        "success": true,
+        "link": "http:\/\/drng.dk\/4g",
+        "created_at": 1330211075,
+        "original_url": "http:\/\/google.com",
+        "visits_day": 3,
+        "visits_week": 3,
+        "visits_month": 3,
+        "visits_year": 3,
+        "visits": [
+            ["2012-02-26",3]
         ]
-        "browsers": [                           //array of browsers used
-            ["Firefox",3]                       //[0]: Name of browser; [1]: Visitors using
+        "browsers": [
+            ["Firefox",3]
         ]
-        "os": [                                 //array of operating systems used
-            ["Windows",3]                       //[0]: Name of OS; [1] Visitors using
+        "os": [
+            ["Windows",3]
         ]
     }
+
+Following is each part of the object explained:
+
+ * **success**: Whether the request was a success or not.
+ * **link**: The full link for which statistics are shown.
+ * **created_at**: The time of creation of this link in UNIX timestamp format
+   (seconds)
+ * **original_url**: Where the link leads to. The URL it is supposed to redirect
+   to.
+ * **visits_day**: Visits in the last 24 hours (convenience)
+ * **visits_week**: Visits in the last 7*24 hours = 7 days (convenience)
+ * **visits_month**: Visits in the last 31*24 hours = 31 days (convenience)
+ * **visits_year**: Visits in the last 365*24 hours = 365 days (convenience)
+ * **visits**: Contains an array of arrays with data. `visits[i][0]` contains
+   date of visit as a string in format "YYYY-MM-DD". `visits[i][1]` contains the
+   amount of visitors on that date. In this way, only days with visitors are
+   shown.
+ * **browsers**: Contains an array of arrays with data. `browsers[i][0]`
+   contians the name of a browser, `browsers[i][1]` contains the amount of
+   visitors using that browser.
+ * **os**: Contains an array of arrays with data. `os[i][0]` contains the name
+   of an operating system, `os[i][1]` contains the amount of visitors using that
+   os.
 
 >Naive (visits_xx) implementation showing simple stats using jQuery
 >Naive implementation showing downloads cURL

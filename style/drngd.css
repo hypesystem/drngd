@@ -19,6 +19,7 @@ body {
 h1,h2,h3,h4,h5,h6 {
     margin-bottom: 0px;
     font-family: 'Corbel',serif;
+    border-top: 1px solid rgba(255,255,255,0.2);
 }
 p {
     margin-top: 0px;
@@ -147,4 +148,12 @@ a {
 }
 #pc-version-link {
     display: none;
+}
+
+code {
+    font-family: 'Consolas',monospace;
+    font-size: 12px;
+    padding: 5px;
+    margin: 3px;
+    background: #000;
 }
