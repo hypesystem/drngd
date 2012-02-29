@@ -18,14 +18,38 @@ If it was *not* successful, (`success == true`), there will be an `error`-elemen
 as well, detailing what went wrong. Hence, you should always check for the
 success of a call as a first thing.
 
-> Example of wrong call cURL
+With cURL (PHP) an erroneous call would be like the following (although it's not
+far off):
+
+    <?php
+    $query = "?url=google.com";
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, 'http://api.drng.dk/create-link.php'.$query);
+    
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, '3');
+    
+    $content = trim(curl_exec($ch));
+    curl_close($ch);
+    
+    $arr = json_decode($content,true);
+    if(!$arr['success'])
+        echo 'Failure! '.$arr['error'];
+    ?>
+
+The problem with the above (which should always print the error), is that it
+makes a create-link API call with an invalid URL: URLs must always be prefixed
+with either http://, https://, ftp:// or www.
 
 An example of a faulty call with jQuery could be:
 
-    $.get("http://api.drng.dk/get-stats.php", {url: "http://drng.dk/qz"}, function(data) {
+    <script type="text/javascript">
+    $.getJSON("http://api.drng.dk/get-stats.php", {url: "http://drng.dk/qz"}, function(data) {
         if(!data.success) alert(data.error);
         else alert("#WINNING");
-    }
+    });
+    </script>
 
 This would result in a popup-box with an error-message telling you "Invalid link
 id given". Why? Because get-stats.php does not take an URL, it takes **only**
@@ -48,16 +72,21 @@ object could look something like this:
         "link": "http:\/\/drng.dk\/4g"
     }
 
-A correct call with jQuery would looke something like this:
+A correct call with jQuery could look something like this:
 
-    $.get("http://api.drng.dk/create-link.php", {url: "http://deranged.dk"}, function(data) {
+    <script type="text/javascript">
+    $.getJSON("http://api.drng.dk/create-link.php", {url: "http://deranged.dk"}, function(data) {
         if(data.success)
             alert("Your link has been succesfully created!\n"+
                 "Your short link is: "+data.link);
         else
             alert("Oops! Something went wrong with the link creation!\n"+
                 data.error);
-    }
+    });
+    </script>
+
+This prints a message and the short link generated if it was succesful.
+Otherwise, it will print an error message, passed on directly from the API.
 
 get-stats
 ---------
@@ -113,6 +142,26 @@ Following is each part of the object explained:
    of an operating system, `os[i][1]` contains the amount of visitors using that
    os.
 
->Naive (visits_xx) implementation showing simple stats using jQuery
+Using this knowledge, an easy, naive implementation of some statistics with
+jQuery can be obtained as in the following example:
+
+    <script type="text/javascript">
+    $.getJSON("http://api.drng.dk/get-stats.php", {id: 1}, function(data) {
+        if(data.success) {
+            var c = new Date();
+            c.setTime(data.created_at * 1000);   //javascript uses ms timestamps
+            var date = c.getDate()+'-'+(c.getMonth() + 1)+'-'+c.getYear();
+
+            var html =
+                'Original link: <a href="'+data.original_url+'">'+data.original_url+'</a>'+
+                '<br/>Visits in the last 24 hours: '+data.visits_day+
+                '<br/>Visits since creation ('+date+'): '+data.visits_total;
+
+            $("body").append(html);
+        }
+    });
+    </script>
+
 >Naive implementation showing downloads cURL
+
 >Advanced implementation showing more data using jQuery

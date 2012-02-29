@@ -32,10 +32,10 @@ function buildCharts(link_id) {
             $("#original_link").html('<a href="'+statsData.link+'" title="'+statsData.original_url+'" target="_blank">'+(statsData.original_url.length > 37 ? statsData.original_url.substring(0,35)+"&hellip;" : statsData.original_url)+'</a>');
             $("#created_at").html(createdDate.getDate()+"-"+(createdDate.getMonth() + 1)+"-"+createdDate.getFullYear()+" "+createdDate.getHours()+":"+createdDate.getMinutes());
 
-            var pie_tt = { formatter: function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')'; } }
-            var pie_plot = { pie: { allowPointSelect: true, cursor: 'pointer',
-                                dataLabels: { enabled: true, color: '#FFFFFF', connectorColor: '#999',
-                                    formatter: function() { return this.point.name; }
+            var pie_tt = {formatter: function() {return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +'% ('+ this.y +')';}}
+            var pie_plot = {pie: {allowPointSelect: true, cursor: 'pointer',
+                                dataLabels: {enabled: true, color: '#FFFFFF', connectorColor: '#999',
+                                    formatter: function() {return this.point.name;}
                                 }
                             }
                         }
