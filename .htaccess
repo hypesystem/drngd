@@ -6,3 +6,4 @@ RewriteEngine on
 RewriteRule ^([a-z0-9]+)$ index.php?v=$1
 RewriteRule ^\!stats\/([a-z0-9]+)$ index.php?s=stats&l=$1
 RewriteRule ^\!doc\/([aA-zZ0-9\-]+)$ index.php?s=doc&n=$1
+RewriteRule ^\!force-pc$ index.php?s=force-pc
