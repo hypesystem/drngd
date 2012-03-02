@@ -1,4 +1,7 @@
 <?php
-setcookie("force-pc",true);
+if(!isset($_GET['false']))
+    setcookie("force-pc",true);
+else
+    setcookie("force-pc",false);
 header('Location: .');
 ?>
