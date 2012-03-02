@@ -4,7 +4,7 @@ API Documentation
 [create-link]: http://api.drng.dk/create-link.php "create-link API call"
 [get-stats]: http://api.drng.dk/get-stats.php "get-stats API call"
 
-`**NOTE**: To use jQuery for remote API calls, you may need to create some kind
+`NOTE: To use jQuery for remote API calls, you may need to create some kind
 of work-around as most browsers block remote calls per default. `
 
 There are currently only two availible API calls: [**create-link**][create-link]
@@ -17,7 +17,7 @@ can easily be interpreted with jQuery, cURL or the likes. The first (and only
 constant) element of the object is the "success" boolean. This indicates whether
 your request was succesful or not.
 
-If it was *not* successful, (`success == true`), there will be an `error`-element
+If it was *not* successful (`success == false`), there will be an `error`-element
 as well, detailing what went wrong. Hence, you should always check for the
 success of a call as a first thing.
 
