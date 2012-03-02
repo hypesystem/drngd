@@ -165,6 +165,41 @@ jQuery can be obtained as in the following example:
     });
     </script>
 
->Naive implementation showing downloads cURL
+The above example would print out a little information about the requested link,
+such as where it links to, how many visits there have been in the last 24 hours,
+how many visits there have been in total and exactly when the link was created.
 
->Advanced implementation showing more data using jQuery
+A different naive implementation, this time using cURL, is shown below:
+
+    <?php
+    
+    $downloads = array();
+
+    for($id in $download_link_ids) {
+        $query = "?id=".$id;
+        
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'http://api.drng.dk/get-stats.php'.$query);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, '3');
+
+        $content = trim(curl_exec($ch));
+        curl_close($ch);
+
+        $arr = json_decode($content,true);
+
+        if($arr['success']) {
+            $downloads[] = $arr['visits_total'];
+        }
+        else
+            echo 'Failure! '.$arr['error'];
+    }
+    ?>
+
+This gets data for a simple download site, where the amount of downloads of the
+different links are shown (here, stored in `$downloads[]`).
+
+With these basic principles of using the API, it should be possible to easily
+integrate drng.dk with *your* website.
