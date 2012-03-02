@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <link rel="shortcut icon" type="image/png" href="style/imgs/fav.png" />
-        <!--<base href="http://drng.dk/" />-->
+        <base href="http://drng.dk/" />
         <title><?php echo $page_title; ?> | drng.dk</title>
         <link rel="stylesheet" media="screen and (min-width: 701px)" type="text/css" href="style/drngd.css" />
         <link rel="stylesheet" media="only screen and (max-width: 700px)" type="text/css" href="style/mobile.css" />
