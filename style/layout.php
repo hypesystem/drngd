@@ -32,6 +32,6 @@
         <div id="container" class="<?php echo trim($_GET['s']); ?>">
             <?php echo $page_content; ?>
         </div>
-        <?php /*<div id="pc-version-link"><a href="!force-pc">Go to the PC version of the website.</a></div>*/ ?>
+        <div id="pc-version-link"><a href="!force-pc">Go to the PC version of the website.</a></div>
     </body>
 </html>
