@@ -4,13 +4,16 @@ API Documentation
 [create-link]: http://api.drng.dk/create-link.php "create-link API call"
 [get-stats]: http://api.drng.dk/get-stats.php "get-stats API call"
 
+`**NOTE**: To use jQuery for remote API calls, you may need to create some kind
+of work-around as most browsers block remote calls per default. `
+
 There are currently only two availible API calls: [**create-link**][create-link]
 and [**get-stats**][get-stats]. They are called by accessing
 [http://api.drng.dk/create-link.php][create-link] and
 [http://api.drng.dk/get-stats.php][get-stats], respectively.
 
-An API call takes its arguments in GET and returns a JSON object, that can
-easily be interpreted with jQuery, cURL or the likes. The first (and only
+Any drng.dk API call takes its arguments in GET and returns a JSON object, that
+can easily be interpreted with jQuery, cURL or the likes. The first (and only
 constant) element of the object is the "success" boolean. This indicates whether
 your request was succesful or not.
 
