@@ -19,4 +19,4 @@ Why use it?
    [See the source code.](http://github.com/hypesystem/drngd)
 
 For more information about the project see
-[What is it?](http://drng.dk/!doc/what-is-it).
+[What is it?](http://drng.dk/!doc/what-is-it)
