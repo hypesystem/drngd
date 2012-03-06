@@ -17,3 +17,6 @@ Why use it?
    source-code for the project is publicly availible and easy to fork through
    it's home at GitHub.
    [See the source code.](http://github.com/hypesystem/drngd)
+
+For more information about the project see
+[What is it?](http://drng.dk/!doc/what-is-it).
