@@ -5,8 +5,8 @@
         <link rel="shortcut icon" type="image/png" href="style/imgs/fav.png" />
         <base href="http://test.drng.dk/" />
         <title><?php echo $page_title; ?> | drng.dk</title>
-        <link rel="stylesheet" <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo 'media="screen and (min-width: 701px)"'; ?> type="text/css" href="style/drngd.css" />
-        <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo '<link rel="stylesheet" media="only screen and (max-width: 700px)" type="text/css" href="style/mobile.css" />'; ?>
+        <link rel="stylesheet" <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo 'media="Screen"'; ?> type="text/css" href="style/drngd.css" />
+        <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo '<link rel="stylesheet" media="handheld" type="text/css" href="style/mobile.css" />'; ?>
         <?php foreach($stylesheets as $s): ?>
             <link rel="stylesheet" type="text/css" href="<?php echo $s; ?>"></script>
         <?php endforeach; ?>
