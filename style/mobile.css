@@ -3,7 +3,7 @@
     body {
         margin: 0;
         margin-bottom: 20px;
-        width: 600px;
+        max-width: 600px;
         min-height: 125px;
         font-family: 'Calibri', sans-serif;
         color: white;
@@ -25,7 +25,7 @@
     #bar {
         background: url('imgs/logo.png') no-repeat black 0 -20px;
         border-bottom: 1px solid white;
-        width: 600px;
+        max-width: 600px;
         position: fixed;
         top: 0;
         left: 0;
