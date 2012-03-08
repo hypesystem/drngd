@@ -13,6 +13,6 @@
                         <div id="os-graph" class="graph">&hellip;</div>
                         <div id="browser-graph" class="graph">&hellip;</div>
                     </div>
-                    <script type="text/javascript">$(document).ready(function(){buildCharts('.$_GET['l'].');});</script>';
+                    <script type="text/javascript">$(document).ready(function(){buildCharts("'.$_GET['l'].'");});</script>';
     $page_title = 'Stats: '.$_GET['l'].'';
 ?>
