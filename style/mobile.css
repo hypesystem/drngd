@@ -1,9 +1,9 @@
 @media handheld, only screen and (max-device-width: 600px) {
-    html { height: 100%; max-width: 600px; background: rgb(26,26,26); }
+    html { height: 100%; max-width: 100%; background: rgb(26,26,26); }
     body {
         margin: 0;
         margin-bottom: 20px;
-        max-width: 600px;
+        width: 100%;
         min-height: 125px;
         font-family: 'Calibri', sans-serif;
         color: white;
@@ -25,7 +25,7 @@
     #bar {
         background: url('imgs/logo.png') no-repeat black 0 -20px;
         border-bottom: 1px solid white;
-        max-width: 600px;
+        width: 100%;
         position: fixed;
         top: 0;
         left: 0;
