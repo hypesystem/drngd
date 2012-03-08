@@ -1,5 +1,5 @@
 @media handheld, only screen and (max-device-width: 600px) {
-    html { height: 100%; max-width: 100%; background: rgb(26,26,26); }
+    html { height: 100%; max-width: 600px; background: rgb(26,26,26); }
     body {
         margin: 0;
         margin-bottom: 20px;
