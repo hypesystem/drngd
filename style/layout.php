@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8" />
         <link rel="shortcut icon" type="image/png" href="style/imgs/fav.png" />
-        <base href="http://drng.dk/" />
+        <!--<base href="http://drng.dk/" />-->
         <title><?php echo $page_title; ?> | drng.dk</title>
-        <link rel="stylesheet" media="screen and (min-width: 701px)" type="text/css" href="style/drngd.css" />
-        <link rel="stylesheet" media="only screen and (max-width: 700px)" type="text/css" href="style/mobile.css" />
+        <link rel="stylesheet" <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo 'media="screen and (min-width: 701px)"'; ?> type="text/css" href="style/drngd.css" />
+        <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo '<link rel="stylesheet" media="only screen and (max-width: 700px)" type="text/css" href="style/mobile.css" />'; ?>
         <?php foreach($stylesheets as $s): ?>
             <link rel="stylesheet" type="text/css" href="<?php echo $s; ?>"></script>
         <?php endforeach; ?>
@@ -24,7 +24,7 @@
                 </nav>
                 <div id="version">
                     <a href="http://github.com/hypesystem/drngd" target="_blank">
-                        1.2.1.<?php if(file_exists("sys/version.log")) include("sys/version.log"); else echo "null"; ?>
+                        1.2.2.<?php if(file_exists("sys/version.log")) include("sys/version.log"); else echo "null"; ?>
                     </a>
                 </div>
             </div>
@@ -32,6 +32,6 @@
         <div id="container" class="<?php echo trim($_GET['s']); ?>">
             <?php echo $page_content; ?>
         </div>
-        <?php /*<div id="pc-version-link"><a href="!force-pc">Go to the PC version of the website.</a></div>*/ ?>
+        <div id="pc-version-link"><a href="!force-pc">Go to the PC version of the website.</a></div>
     </body>
 </html>
