@@ -6,6 +6,7 @@
         width: 100%;
         min-height: 125px;
         font-family: 'Calibri', sans-serif;
+        font-size: 30px;
         color: white;
 
         /*gradient*/
@@ -70,13 +71,14 @@
     }
     #url-input {
         padding: 10px;
-        width: 175px;
+        width: 75%;
     }
     #url-input.inactive {
         color: #777;
     }
     #url-submit {
         padding: 8px;
+        width: 20%;
     }
     #pc-version-link {
         position: fixed;
