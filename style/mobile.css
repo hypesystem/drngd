@@ -1,4 +1,4 @@
-@media handheld {
+@media handheld, only screen and (max-device-width: 600px) {
     html { height: 100%; max-width: 100%; background: rgb(26,26,26); }
     body {
         margin: 0;
@@ -6,6 +6,7 @@
         width: 100%;
         min-height: 125px;
         font-family: 'Calibri', sans-serif;
+        font-size: 30px;
         color: white;
 
         /*gradient*/
@@ -70,13 +71,14 @@
     }
     #url-input {
         padding: 10px;
-        width: 175px;
+        width: 50%;
     }
     #url-input.inactive {
         color: #777;
     }
     #url-submit {
         padding: 8px;
+        width: 20%;
     }
     #pc-version-link {
         position: fixed;

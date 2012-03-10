@@ -2,11 +2,12 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <link rel="shortcut icon" type="image/png" href="style/imgs/fav.png" />
-        <base href="http://drng.dk/" />
+        <base href="http://test.drng.dk/" />
         <title><?php echo $page_title; ?> | drng.dk</title>
-        <link rel="stylesheet" <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo 'media="Screen"'; ?> type="text/css" href="style/drngd.css" />
-        <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo '<link rel="stylesheet" media="handheld" type="text/css" href="style/mobile.css" />'; ?>
+        <link rel="stylesheet" <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo 'media="Screen and (min-device-width: 600px)"'; ?> type="text/css" href="style/drngd.css" />
+        <?php if(!isset($_COOKIE['force-pc']) || !$_COOKIE['force-pc']) echo '<link rel="stylesheet" media="handheld, only screen and (max-device-width: 600px)" type="text/css" href="style/mobile.css" />'; ?>
         <?php foreach($stylesheets as $s): ?>
             <link rel="stylesheet" type="text/css" href="<?php echo $s; ?>"></script>
         <?php endforeach; ?>
@@ -24,7 +25,7 @@
                 </nav>
                 <div id="version">
                     <a href="http://github.com/hypesystem/drngd" target="_blank">
-                        1.2.2.<?php if(file_exists("sys/version.log")) include("sys/version.log"); else echo "null"; ?>
+                        1.2.3.<?php if(file_exists("sys/version.log")) include("sys/version.log"); else echo "null"; ?>
                     </a>
                 </div>
             </div>

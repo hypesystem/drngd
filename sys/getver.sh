@@ -1,1 +1,1 @@
-git describe --all --long | tr "-" " " | awk '{print $3}' > version.log
+git describe --all --long | tr "\-|\-g" " " | awk '{print $3}' > version.log
