@@ -71,7 +71,7 @@
     }
     #url-input {
         padding: 10px;
-        width: 75%;
+        width: 50%;
     }
     #url-input.inactive {
         color: #777;
