@@ -1,4 +1,4 @@
-@media handheld, only screen and (max-device-width: 600px) {
+@media handheld, only screen and (max-device-width: 719px) {
     html { height: 100%; max-width: 100%; background: rgb(26,26,26); }
     body {
         margin: 0;
