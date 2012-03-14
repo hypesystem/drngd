@@ -18,7 +18,7 @@ body {
 }
 h1,h2,h3,h4,h5,h6 {
     margin-bottom: 0px;
-    font-family: 'Corbel',serif;
+    font-family: Corbel, Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     border-top: 1px solid rgba(255,255,255,0.2);
 }
 p {
@@ -38,7 +38,7 @@ a {
 #url-input, #url-submit {
     margin-top: 50px;
     font-size: 18px;
-    font-family: 'Calibri',sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 #url-submit {
     padding: 8px;
@@ -55,7 +55,7 @@ a {
     display: inline-block;
     margin-top: 60px;
     color: white;
-    font-family: 'Calibri',sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 .stats#container table {
     width: 100%;
@@ -115,7 +115,7 @@ a {
     display: inline-block;
     text-align: left;
     width: 700px;
-    font-family: 'Calibri',sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     padding: 10px;
 }
 
@@ -156,7 +156,7 @@ pre {
 }
 
 code {
-    font-family: 'Consolas',monospace;
+    font-family: Consolas, monaco, monospace;
     font-size: 12px;
     padding: 5px;
     margin: 3px;
