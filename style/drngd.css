@@ -144,6 +144,7 @@ a {
     background: rgba(0,0,0,0.6);
     border-radius: 5px;
     text-decoration: none;
+    text-shadow: 0px 0px 1px black, 0px 0px 2px black, 0px 2px 1px black;
     box-shadow: 0px 0px 2px black;
 }
 #pc-version-link {
