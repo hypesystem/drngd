@@ -27,6 +27,9 @@
                     </tr><tr>
                         <th>Created at:</th>
                         <td id="created_at">'.date("j-m-Y H:i",$arr['created_at']).'</td>
+                    </tr><tr>
+                        <th>Total visits:</th>
+                        <td id="total_visits">'.$arr['visits_total'].'</td>
                     </tr></table>
                     </div>
                     <div id="visits-graph" class="graph"><table>
@@ -34,7 +37,6 @@
                         <tr><td>Visits last week:</td><td>'.$arr['visits_week'].'</td></tr>
                         <tr><td>Visits last month:</td><td>'.$arr['visits_month'].'</td></tr>
                         <tr><td>Visits last year:</td><td>'.$arr['visits_year'].'</td></tr>
-                        <tr><td>Visits total:</td><td>'.$arr['visits_total'].'</td></tr>
                     </table></div>
                     <div class="graph-row">
                         <div id="os-graph" class="graph">'.$os_table.'</div>
