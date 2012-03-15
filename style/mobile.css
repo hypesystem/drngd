@@ -124,4 +124,7 @@
     .stats#container td {
         text-align: left;
     }
+    .graph {
+        width: 100%;
+    }
 }
