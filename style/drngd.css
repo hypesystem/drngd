@@ -18,7 +18,7 @@ body {
 }
 h1,h2,h3,h4,h5,h6 {
     margin-bottom: 0px;
-    font-family: 'Corbel',serif;
+    font-family: Corbel, Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     border-top: 1px solid rgba(255,255,255,0.2);
 }
 p {
@@ -41,7 +41,7 @@ form input {
 #url-input, #url-submit {
     margin-top: 50px;
     font-size: 18px;
-    font-family: 'Calibri',sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 #url-submit {
     padding: 8px;
@@ -58,7 +58,7 @@ form input {
     display: inline-block;
     margin-top: 60px;
     color: white;
-    font-family: 'Calibri',sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 .stats#container table {
     width: 100%;
@@ -125,7 +125,7 @@ form input {
     display: inline-block;
     text-align: left;
     width: 700px;
-    font-family: 'Calibri',sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     padding: 10px;
 }
 
@@ -154,6 +154,7 @@ form input {
     background: rgba(0,0,0,0.6);
     border-radius: 5px;
     text-decoration: none;
+    text-shadow: 0px 0px 1px black, 0px 0px 2px black, 0px 2px 1px black;
     box-shadow: 0px 0px 2px black;
 }
 #pc-version-link {
@@ -166,7 +167,7 @@ pre {
 }
 
 code {
-    font-family: 'Consolas',monospace;
+    font-family: Consolas, monaco, monospace;
     font-size: 12px;
     padding: 5px;
     margin: 3px;
