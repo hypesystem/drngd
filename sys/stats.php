@@ -52,7 +52,21 @@
                             <div id="browser-graph" class="graph"></div>
                             <div class="data">'.$browser_table.'</div>
                         </div>
-                        <script type="text/javascript">$(document).ready(function(){buildCharts("'.$_GET['l'].'");});</script>';
+                        <script type="text/javascript">$(document).ready(function(){buildCharts("'.$_GET['l'].'");});</script>
+                        <div pub-key="pub-80743985-ff70-4d32-969c-d68b7e92b2d9" sub-key="sub-9e516238-2685-11e1-b204-671e781827dd" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+                        <script type="text/javascript" src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
+                        <script type="text/javascript">
+                        (function(){
+                            PUBNUB.subscribe({
+                                channel : "'.trim($_GET['l']).'",
+                                restore : false,
+                                callback : function(message) {
+                                    var data_val = visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y;
+                                    visitsChart.series[0].data[visitsChart.series[0].data.length - 1].update({y: data_val + 1});
+                                }
+                            });
+                        })();
+                        </script>';
     }
     else $page_content .= ' '.(isset($arr['error']) ? $arr['error'] : "Could not connect to server.").'.';
     
