@@ -16,12 +16,12 @@
     if($arr['success']) {
         $scripts = array("lib/jquery.js","lib/highcharts.js","script/stats.js");
 
-        $os_table = '<table>';
-        foreach($arr['os'] as $os) $os_table .= '<tr><td>'.$os[0].'</td><td>'.$os[1].'</td></tr>';
+        $os_table = '<table class="data">';
+        foreach($arr['os'] as $os) $os_table .= '<tr><td>'.$os[0].'</td><td class="num">'.$os[1].'</td></tr>';
         $os_table .= '</table>';
 
-        $browser_table = '<table>';
-        foreach($arr['browsers'] as $browser) $browser_table .= '<tr><td>'.$browser[0].'</td><td>'.$browser[1].'</td></tr>';
+        $browser_table = '<table class="data">';
+        foreach($arr['browsers'] as $browser) $browser_table .= '<tr><td>'.$browser[0].'</td><td class="num">'.$browser[1].'</td></tr>';
         $browser_table .= '</table>';
 
         $page_content = '<div class="top"><table><tr>
@@ -35,11 +35,11 @@
                             <td id="total_visits">'.$arr['visits_total'].'</td>
                         </tr></table>
                         </div>
-                        <div id="visits-graph" class="graph"><table>
-                            <tr><td>Visits last day:</td><td>'.$arr['visits_day'].'</td></tr>
-                            <tr><td>Visits last week:</td><td>'.$arr['visits_week'].'</td></tr>
-                            <tr><td>Visits last month:</td><td>'.$arr['visits_month'].'</td></tr>
-                            <tr><td>Visits last year:</td><td>'.$arr['visits_year'].'</td></tr>
+                        <div id="visits-graph" class="graph"><table class="data">
+                            <tr><td>Visits last day:</td><td class="num">'.$arr['visits_day'].'</td></tr>
+                            <tr><td>Visits last week:</td><td class="num">'.$arr['visits_week'].'</td></tr>
+                            <tr><td>Visits last month:</td><td class="num">'.$arr['visits_month'].'</td></tr>
+                            <tr><td>Visits last year:</td><td class="num">'.$arr['visits_year'].'</td></tr>
                         </table></div>
                         <div class="graph-row">
                             <div id="os-graph" class="graph">'.$os_table.'</div>
