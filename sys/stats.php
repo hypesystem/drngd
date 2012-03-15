@@ -16,11 +16,11 @@
     if($arr['success']) {
         $scripts = array("lib/jquery.js","lib/highcharts.js","script/stats.js");
 
-        $os_table = '<table class="data">';
+        $os_table = '<table><tr><th colspan="2">Operating systems</th></tr>';
         foreach($arr['os'] as $os) $os_table .= '<tr><td>'.$os[0].'</td><td class="num">'.$os[1].'</td></tr>';
         $os_table .= '</table>';
 
-        $browser_table = '<table class="data">';
+        $browser_table = '<table><tr><th colspan="2">Browsers</th></tr>';
         foreach($arr['browsers'] as $browser) $browser_table .= '<tr><td>'.$browser[0].'</td><td class="num">'.$browser[1].'</td></tr>';
         $browser_table .= '</table>';
 
@@ -35,15 +35,22 @@
                             <td id="total_visits">'.$arr['visits_total'].'</td>
                         </tr></table>
                         </div>
-                        <div id="visits-graph" class="graph"><table class="data">
-                            <tr><td>Visits last day:</td><td class="num">'.$arr['visits_day'].'</td></tr>
-                            <tr><td>Visits last week:</td><td class="num">'.$arr['visits_week'].'</td></tr>
-                            <tr><td>Visits last month:</td><td class="num">'.$arr['visits_month'].'</td></tr>
-                            <tr><td>Visits last year:</td><td class="num">'.$arr['visits_year'].'</td></tr>
-                        </table></div>
-                        <div class="graph-row">
-                            <div id="os-graph" class="graph">'.$os_table.'</div>
-                            <div id="browser-graph" class="graph">'.$browser_table.'</div>
+                        <div class="dataset" id="visits-dataset">
+                            <div id="visits-graph" class="graph"></div>
+                            <div class="data"><table><tr><th colspan="2">Visits over time</th></tr>
+                                <tr><td>Visits last day:</td><td class="num">'.$arr['visits_day'].'</td></tr>
+                                <tr><td>Visits last week:</td><td class="num">'.$arr['visits_week'].'</td></tr>
+                                <tr><td>Visits last month:</td><td class="num">'.$arr['visits_month'].'</td></tr>
+                                <tr><td>Visits last year:</td><td class="num">'.$arr['visits_year'].'</td></tr>
+                            </table></div>
+                        </div>
+                        <div class="dataset" id="os-dataset">
+                            <div id="os-graph" class="graph"></div>
+                            <div class="data">'.$os_table.'</div>
+                        </div>
+                        <div class="dataset" id="browser-dataset">
+                            <div id="browser-graph" class="graph"></div>
+                            <div class="data">'.$browser_table.'</div>
                         </div>
                         <script type="text/javascript">$(document).ready(function(){buildCharts("'.$_GET['l'].'");});</script>';
     }

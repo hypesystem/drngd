@@ -1,5 +1,6 @@
 var browserChart, osChart, visitsChart;
 function buildCharts(link_id) {
+    $(".graph").css("display","inline-block");
     $.getJSON("api/get-stats.php", {id: link_id}, function(statsData) {
         if(statsData.success) {
 
@@ -135,3 +136,32 @@ function buildCharts(link_id) {
         }
     });
 }
+
+$(document).ready(function() {
+    var visits_data_html = $('#visits-dataset .data').html();
+    var browser_data_html = $('#browser-dataset .data').html();
+    var os_data_html = $('#os-dataset .data').html();
+    
+    $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').text("see data").css("cursor","pointer").css("text-shadow","0px 0px 1px black");
+    
+    $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').click(function() {
+        if($(this).text() == "see data") {
+            $(this).slideUp("fast");
+            switch($(this).parent().attr("id")) {
+                case("visits-dataset"):
+                    $(this).html(visits_data_html);
+                    break;
+                case("os-dataset"):
+                    $(this).html(os_data_html);
+                    break;
+                case("browser-dataset"):
+                    $(this).html(browser_data_html);
+                    break;
+            }
+        }
+        else {
+            $(this).slideUp("fast").text("see data").css("cursor","pointer").css("text-shadow","0px 0px 1px black");
+        }
+        $(this).slideDown("fast");
+    });
+});

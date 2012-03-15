@@ -61,34 +61,51 @@ form input {
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 .stats#container table {
+    display: inline-block;
     margin-bottom: 10px;
     border-collapse: collapse;
 }
-.stats#container .top table {
-    width: 100%;
+.stats#container .data {
+    text-align: center;
+    padding: 10px;
 }
-.stats#container table.data td {
+.stats#container .dataset {
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 1px black, 0px 2px 1px black;
+    border-radius: 0 0 10px 10px;
+    background: rgb(26,26,26);
+    margin: 10px;
+    vertical-align: top;
+}
+.stats#container .data table {
+    width: 270px;
+}
+.stats#container .data table td {
     border-bottom: 1px dotted #999;
     padding: 0 10px;
     width: 120px;
 }
-.stats#container table.data td.num {
+.stats#container .data table td.num {
     text-align: right;
     font-family: Consolas, monaco, monospace;
 }
 .stats#container .graph {
-    display: inline-block;
+    display: none;
     height: 250px;
+}
+#visits-graph {
     width: 600px;
 }
-.stats#container .graph-row .graph {
+#os-graph, #browser-graph {
+    width: 280px;
+}
+#os-dataset, #browser-dataset {
+    display: inline-block;
     width: 300px;
 }
 .stats#container th {
     text-align: right;
     padding-right: 10px;
-    font-weight: normal;
-    width: 43%;
 }
 .stats#container td {
     text-align: left;
