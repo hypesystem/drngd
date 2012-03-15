@@ -1,5 +1,7 @@
 $(document).ready(function(){
     
+    $("#url-input").val("http://url");
+    
     ZeroClipboard.setMoviePath( 'lib/zeroclipboard/ZeroClipboard.swf' );
     var copyLink = new ZeroClipboard.Client();
     
@@ -15,7 +17,8 @@ $(document).ready(function(){
         $(this).removeClass("inactive");
     });
     
-    $("#url-submit").click(function() {
+    $("#url-submit").click(function(event) {
+        event.preventDefault();
         copyLink.hide();
         $(this).attr("disabled",true);
         $("#output").hide();
