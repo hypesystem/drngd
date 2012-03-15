@@ -126,7 +126,7 @@ code {
     width: 300px;
 }
 
-.doc#container {
+.doc#container, .error#container {
     text-align: left;
 }
 .doc#container .src-link {
