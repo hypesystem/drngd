@@ -142,11 +142,12 @@ $(document).ready(function() {
     var browser_data_html = $('#browser-dataset .data').html();
     var os_data_html = $('#os-dataset .data').html();
     
-    $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').text("see data").css("cursor","pointer").css("text-shadow","0px 0px 1px black");
+    $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').text("see data").css("font-size","12px").css("cursor","pointer").css("text-decoration","underline");
     
     $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').click(function() {
         if($(this).text() == "see data") {
             $(this).slideUp("fast");
+            $(this).css("font-size","16px").css("text-decoration","none");
             switch($(this).parent().attr("id")) {
                 case("visits-dataset"):
                     $(this).html(visits_data_html);
@@ -160,7 +161,7 @@ $(document).ready(function() {
             }
         }
         else {
-            $(this).slideUp("fast").text("see data").css("cursor","pointer").css("text-shadow","0px 0px 1px black");
+            $(this).slideUp("fast").text("see data").css("font-size","12px").css("cursor","pointer").css("text-decoration","underline");
         }
         $(this).slideDown("fast");
     });
