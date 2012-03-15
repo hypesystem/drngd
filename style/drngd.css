@@ -61,15 +61,20 @@ form input {
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 .stats#container table {
-    width: 100%;
     margin-bottom: 10px;
+    border-collapse: collapse;
+}
+.stats#container .top table {
+    width: 100%;
 }
 .stats#container table.data td {
     border-bottom: 1px dotted #999;
+    padding: 0 10px;
+    width: 120px;
 }
 .stats#container table.data td.num {
     text-align: right;
-    font-family: Consolas;
+    font-family: Consolas, monaco, monospace;
 }
 .stats#container .graph {
     display: inline-block;
