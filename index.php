@@ -12,7 +12,7 @@ if(verifyLinkKey($_GET['v'])) {
     $pubnub = new Pubnub("pub-80743985-ff70-4d32-969c-d68b7e92b2d9","sub-9e516238-2685-11e1-b204-671e781827dd");
     $pubnub->publish(array(
         'channel' => trim($_GET['v']),
-        'message' => array('ip' => "127.0.0.1", 'browser' => "Firefox", 'os' => "Windows")
+        'message' => array('ip' => "127.0.0.1", 'browser' => "Chrome", 'os' => "Linux")
     ));
     
     header('Location: '.$url['href']);

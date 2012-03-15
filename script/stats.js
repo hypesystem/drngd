@@ -1,3 +1,4 @@
+//CHARTS
 var browserChart, osChart, visitsChart;
 function buildCharts(link_id) {
     $(".graph").css("display","inline-block");
@@ -137,6 +138,8 @@ function buildCharts(link_id) {
     });
 }
 
+//View/hide datasets
+//TODO: Data fields should be updated on PUBNUB call
 $(document).ready(function() {
     var visits_data_html = $('#visits-dataset .data').html();
     var browser_data_html = $('#browser-dataset .data').html();

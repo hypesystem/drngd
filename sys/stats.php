@@ -26,7 +26,7 @@
 
         $page_content = '<div class="top"><table><tr>
                             <th>Original link:</th>
-                            <td id="original_link"><a href="'.$arr['original_url'].'" target="_blank">'.$arr['original_url'].'</td>
+                            <td id="original_link"><a href="'.$arr['link'].'" title="'.$arr['original_url'].'" target="_blank">'.(strlen($arr['original_url']) > 30 ? substr($arr['original_url'],0,28)."&hellip;" : $arr['original_url']).'</a></td>
                         </tr><tr>
                             <th>Created at:</th>
                             <td id="created_at">'.date("j-m-Y H:i",$arr['created_at']).'</td>
@@ -61,8 +61,29 @@
                                 channel : "'.trim($_GET['l']).'",
                                 restore : false,
                                 callback : function(message) {
-                                    var data_val = visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y;
-                                    visitsChart.series[0].data[visitsChart.series[0].data.length - 1].update({y: data_val + 1});
+                                    visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y++;
+                                    visitsChart.render();
+                                    $("#total_visits").text(parseInt($("#total_visits").text()) + 1);
+                                    
+                                    var browserAdded = false;
+                                    for(var z = 0; z < browserChart.series[0].data.length; z++) {
+                                        if(browserChart.series[0].data[z].name == message.browser) {
+                                            browserChart.series[0].data[z].y++;
+                                            browserChart.render();
+                                            browserAdded = true;
+                                        }
+                                    }
+                                    if(!browserAdded) browserChart.series[0].addPoint({name: message.browser, y: 1},true);
+                                    
+                                    var osAdded = false;
+                                    for(var z = 0; z < osChart.series[0].data.length; z++) {
+                                        if(osChart.series[0].data[z].name == message.os) {
+                                            osChart.series[0].data[z].y++;
+                                            osChart.render();
+                                            osAdded = true;
+                                        }
+                                    }
+                                    if(!osAdded) osChart.series[0].addPoint({name: message.os, y: 1},true);
                                 }
                             });
                         })();
