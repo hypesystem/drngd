@@ -9,25 +9,25 @@ RewriteRule ^\!doc\/([aA-zZ0-9\-]+)$ index.php?s=doc&n=$1
 RewriteRule ^\!force-pc$ index.php?s=force-pc
 RewriteRule ^\!e([0-9]{3})$ index.php?s=error&e=$1
 
-ErrorDocument 400 /!e400
-# ErrorDocument 401 /!e401
-# ErrorDocument 402 /!e402
-ErrorDocument 403 /!e403
-ErrorDocument 404 /!e404
-# ErrorDocument 405 /!e405
-# ErrorDocument 406 /!e406
-# ErrorDocument 407 /!e407
-ErrorDocument 408 /!e408
-# ErrorDocument 409 /!e409
-# ErrorDocument 410 /!e410
-# ErrorDocument 411 /!e411
-# ErrorDocument 412 /!e412
-# ErrorDocument 413 /!e413
-# ErrorDocument 414 /!e414
-# ErrorDocument 415 /!e415
-ErrorDocument 500 /!e500
-# ErrorDocument 501 /!e501
-# ErrorDocument 502 /!e502
-ErrorDocument 503 /!e503
-# ErrorDocument 504 /!e504
-# ErrorDocument 505 /!e505
+ErrorDocument 400 /\!e400
+# ErrorDocument 401 \!e401
+# ErrorDocument 402 \!e402
+ErrorDocument 403 \!e403
+ErrorDocument 404 \!e404
+# ErrorDocument 405 \!e405
+# ErrorDocument 406 \!e406
+# ErrorDocument 407 \!e407
+ErrorDocument 408 \!e408
+# ErrorDocument 409 \!e409
+# ErrorDocument 410 \!e410
+# ErrorDocument 411 \!e411
+# ErrorDocument 412 \!e412
+# ErrorDocument 413 \!e413
+# ErrorDocument 414 \!e414
+# ErrorDocument 415 \!e415
+ErrorDocument 500 \!e500
+# ErrorDocument 501 \!e501
+# ErrorDocument 502 \!e502
+ErrorDocument 503 \!e503
+# ErrorDocument 504 \!e504
+# ErrorDocument 505 \!e505
