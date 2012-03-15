@@ -27,6 +27,9 @@ p {
 a {
     color: white;
 }
+form input {
+    margin-right: -4px;
+}
 .green {
     color: green;
     font-weight: bold;
