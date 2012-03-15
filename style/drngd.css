@@ -1,3 +1,4 @@
+/* GENERAL TAGS */
 html { height: 100%; background: rgb(26,26,26); } /*Old browsers*/
 body {
     min-height: 200px;
@@ -38,6 +39,20 @@ form input {
     color: red;
     font-weight: bold;
 }
+pre {
+    overflow: auto;
+    background: black;
+}
+
+code {
+    font-family: Consolas, monaco, monospace;
+    font-size: 12px;
+    padding: 5px;
+    margin: 3px;
+    background: black;
+}
+
+/* CONTAINER PANE */
 #url-input, #url-submit {
     margin-top: 50px;
     font-size: 18px;
@@ -93,6 +108,13 @@ form input {
     display: none;
     height: 250px;
 }
+.stats#container th {
+    text-align: right;
+    padding-right: 10px;
+}
+.stats#container td {
+    text-align: left;
+}
 #visits-graph {
     width: 600px;
 }
@@ -102,13 +124,6 @@ form input {
 #os-dataset, #browser-dataset {
     display: inline-block;
     width: 300px;
-}
-.stats#container th {
-    text-align: right;
-    padding-right: 10px;
-}
-.stats#container td {
-    text-align: left;
 }
 
 .doc#container {
@@ -120,7 +135,7 @@ form input {
     margin-top: 10px;
 }
 
-/* LAYOUT */
+/* TOPBAR */
 #bar {
     /* gradient */
     background: rgb(160,160,160); /* Old browsers */
@@ -141,7 +156,6 @@ form input {
     top: 0;
     z-index: 3;
 }
-
 #bar-content {
     background: url('imgs/logo.png') no-repeat 2px -39px;
     display: inline-block;
@@ -150,20 +164,15 @@ form input {
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     padding: 10px;
 }
-
 #bar-content #version {
     display: inline-block;
     float: right;
     padding-top: 3px;
 }
-
 #bar-content #version, #bar-content #version a {
     font-size: 10px;
     color: #ddd;
     text-decoration: none;
-}
-#bar-content .other a:hover {
-    color: white;
 }
 #bar-menu {
     display: inline-block;
@@ -179,19 +188,8 @@ form input {
     text-shadow: 0px 0px 1px black, 0px 0px 2px black, 0px 2px 1px black;
     box-shadow: 0px 0px 2px black;
 }
+
+/* CHANGE VERSION LINK */
 #pc-version-link {
     display: none;
-}
-
-pre {
-    overflow: auto;
-    background: black;
-}
-
-code {
-    font-family: Consolas, monaco, monospace;
-    font-size: 12px;
-    padding: 5px;
-    margin: 3px;
-    background: black;
 }
