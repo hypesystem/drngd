@@ -13,8 +13,8 @@ if(isset($_GET['n'])) {
         $page_content = Markdown(fread($file, filesize($markdown_src)));
         
         if(strpos($page_content,"<code>") > 0) {
-            $stylesheets[] = "http://yandex.st/highlightjs/6.1/styles/ir_black.min.css";
-            $scripts[] = "http://yandex.st/highlightjs/6.1/highlight.min.js";
+            $stylesheets[] = "lib/ir_black.min.css";
+            $scripts[] = "lib/highlight.min.js";
             $page_content .= '<script type="text/javascript">hljs.tabReplace = "    "; hljs.initHighlightingOnLoad();</script><div class="src-link"><a href="doc/'.trim($_GET['n']).'.markdown" target="_blank">[Source: '.trim($_GET['n']).'.markdown]</a></div>';
         }
         $page_title = ucwords(str_replace("-"," ",trim($_GET['n'])));
