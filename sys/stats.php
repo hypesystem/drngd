@@ -47,7 +47,7 @@
                         </div>
                         <script type="text/javascript">$(document).ready(function(){buildCharts("'.$_GET['l'].'");});</script>';
     }
-    else $page_content .= ' '.$arr['error'].'.';
+    else $page_content .= ' '.(isset($arr['error']) ? $arr['error'] : "Could not connect to server.").'.';
     
     $page_title = 'Stats: '.$_GET['l'].'';
 ?>
