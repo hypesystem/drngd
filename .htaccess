@@ -9,11 +9,11 @@ RewriteRule ^\!doc\/([aA-zZ0-9\-]+)$ index.php?s=doc&n=$1
 RewriteRule ^\!force-pc$ index.php?s=force-pc
 RewriteRule ^\!e([0-9]{3})$ index.php?s=error&e=$1
 
-ErrorDocument 400 /\!e400
+ErrorDocument 400 /!e400
 # ErrorDocument 401 \!e401
 # ErrorDocument 402 \!e402
 ErrorDocument 403 \!e403
-ErrorDocument 404 \!e404
+ErrorDocument 404 /!e404
 # ErrorDocument 405 \!e405
 # ErrorDocument 406 \!e406
 # ErrorDocument 407 \!e407
