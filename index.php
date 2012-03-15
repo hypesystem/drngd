@@ -9,6 +9,9 @@ if(verifyLinkKey($_GET['v'])) {
     if(!isset($url['href']) || $url['href'] == "") $url['href'] = "index.php";
     header('Location: '.$url['href']);
 }
+else if(isset($_GET['v'])) {
+    header("Location: !e404");
+}
 else {
     if(!isset($_GET['s'])) $_GET['s'] = 'create';
     if(file_exists("sys/".trim($_GET['s']).".php")) include_once "sys/".trim($_GET['s']).".php";
