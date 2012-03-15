@@ -1,5 +1,5 @@
 <?php
-    $page_content = 'There is no link with the requested id.';
+    $page_content = 'No link could be found to display stats for.';
 
     $ch = curl_init();
     
@@ -47,6 +47,7 @@
                         </div>
                         <script type="text/javascript">$(document).ready(function(){buildCharts("'.$_GET['l'].'");});</script>';
     }
+    else $page_content .= ' '.$arr['error'].'.';
     
     $page_title = 'Stats: '.$_GET['l'].'';
 ?>
