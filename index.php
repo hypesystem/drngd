@@ -8,12 +8,10 @@ if(verifyLinkKey($_GET['v'])) {
     $url = mysql_fetch_assoc($url) or die(mysql_error());
     if(!isset($url['href']) || $url['href'] == "") $url['href'] = "index.php";
     
-    
-    
     include_once "lib/Pubnub.php";
     $pubnub = new Pubnub("pub-80743985-ff70-4d32-969c-d68b7e92b2d9","sub-9e516238-2685-11e1-b204-671e781827dd");
     $pubnub->publish(array(
-        'channel' => $id,
+        'channel' => trim($_GET['v']),
         'message' => array('ip' => "127.0.0.1", 'browser' => "Firefox", 'os' => "Windows")
     ));
     

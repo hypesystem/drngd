@@ -21,7 +21,8 @@
                             channel    : "'.trim($_GET['l']).'",
                             restore    : false,
                             callback   : function(message) {
-                                alert("Visitor ip: "+message.ip)
+                                var data_val = visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y;
+                                visitsChart.series[0].data[visitsChart.series[0].data.length - 1].update({y: data_val + 1});
                             }
                         });
                     })();</script>';
