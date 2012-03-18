@@ -64,6 +64,9 @@
                                     visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y++;
                                     visitsChart.render();
                                     $("#total_visits").text(parseInt($("#total_visits").text()) + 1);
+                                    $("#visits-dataset table .num").each(function() {
+                                        $(this).text(parseInt($(this).text()) + 1);
+                                    });
                                     
                                     var browserAdded = false;
                                     for(var z = 0; z < browserChart.series[0].data.length; z++) {
@@ -84,6 +87,18 @@
                                         }
                                     }
                                     if(!osAdded) osChart.series[0].addPoint({name: message.os, y: 1},true);
+                                    
+                                    //add to data tables
+                                    $("#browser-dataset table td:not(.num)").each(function() {
+                                        if($(this).text() == message.browser)
+                                            $(this).parent().find(".num").text(parseInt($(this).parent().find(".num").text()) + 1);
+                                    });
+                                    
+                                    $("#os-dataset table td:not(.num)").each(function() {
+                                        if($(this).text() == message.os)
+                                            $(this).parent().find(".num").text(parseInt($(this).parent().find(".num").text()) + 1);
+                                    });
+                                    //TODO: If not set, create new entry
                                 }
                             });
                         })();
