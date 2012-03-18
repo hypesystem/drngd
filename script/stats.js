@@ -141,28 +141,23 @@ function buildCharts(link_id) {
 //View/hide datasets
 //TODO: Data fields should be updated on PUBNUB call
 $(document).ready(function() {
-    var visits_data_html = $('#visits-dataset .data').html();
-    var browser_data_html = $('#browser-dataset .data').html();
-    var os_data_html = $('#os-dataset .data').html();
-    
+    $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').each(function() {
+        $(this).html($(this).html()+'<div class="see-data">see data</div>');
+        $(this).css('cursor','pointer');
+        $(this).find('table').hide();
+        $(this).find('.see-data').hide();
+    });
     $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').click(function() {
-        if($(this).text() == "see data") {
-            $(this).slideUp("fast");
-            $(this).css("font-size","16px").css("text-decoration","none");
-            switch($(this).parent().attr("id")) {
-                case("visits-dataset"):
-                    $(this).html(visits_data_html);
-                    break;
-                case("os-dataset"):
-                    $(this).html(os_data_html);
-                    break;
-                case("browser-dataset"):
-                    $(this).html(browser_data_html);
-                    break;
-            }
+        if($(this).find('.see-data').css('display') == "none") {
+            $(this).slideUp("fast").css("font-size","12px").css("text-decoration","underline");
+            $(this).find('.see-data').show();
+            $(this).find('table').hide();
         }
         else {
-            $(this).slideUp("fast").text("see data").css("font-size","12px").css("cursor","pointer").css("text-decoration","underline");
+            $(this).slideUp("fast");
+            $(this).find('.see-data').hide();
+            $(this).find('table').show();
+            $(this).css("font-size","16px").css("text-decoration","none");
         }
         $(this).slideDown("fast");
     });
