@@ -25,7 +25,7 @@
     
     $scripts = array("lib/jquery.js","lib/zeroclipboard/ZeroClipboard.js","script/create.js");
     $page_content = '   <form method="post" action=".">
-                            <input type="text" name="url" value="" class="inactive" id="url-input" />
+                            <input type="text" name="url" value="" id="url-input" />
                             <input type="submit" value="Shorten link" id="url-submit" />
                         </form>
                         <div id="output">'.$output.'</div>';

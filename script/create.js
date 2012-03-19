@@ -1,6 +1,7 @@
 $(document).ready(function(){
     
     $("#url-input").val("http://url");
+    $("#url-input").addClass("inactive");
     
     ZeroClipboard.setMoviePath( 'lib/zeroclipboard/ZeroClipboard.swf' );
     var copyLink = new ZeroClipboard.Client();
