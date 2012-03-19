@@ -67,8 +67,8 @@
                                     pieChartIncrementField(osChart,message.os);
                                     
                                     //add to data tables
-                                    datasetIncrementField("#browser-dataset",message.browser);
-                                    datasetIncrementField("#os-dataset",message.os);
+                                    datasetIncrementField($("#browser-dataset"),message.browser);
+                                    datasetIncrementField($("#os-dataset"),message.os);
                                 }
                             });
                         })();

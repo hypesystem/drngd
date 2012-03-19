@@ -162,7 +162,7 @@ function pieChartIncrementField(chart, field) {
 
 function datasetIncrementField(dataset, field) {
     var fieldUpdated = false;
-    $(dataset+" table td:not(.num)").each(function() {
+    dataset.find("table td:not(.num)").each(function() {
         if($(this).text() == field) {
             var val = parseInt($(this).parent().find(".num").text()) + 1;
             $(this).parent().find(".num").text(val);
@@ -180,7 +180,7 @@ function datasetIncrementField(dataset, field) {
         }
     });
     if(!fieldUpdated) {
-        $(dataset+" tbody").html($(dataset+" tbody").html()+'<tr><td>'+field+'</td><td class="num">1</td></tr>');
+        dataset.find("tbody").html(dataset.find("tbody").html()+'<tr><td>'+field+'</td><td class="num">1</td></tr>');
     }
 }
 
