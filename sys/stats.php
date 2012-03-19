@@ -89,15 +89,27 @@
                                     if(!osAdded) osChart.series[0].addPoint({name: message.os, y: 1},true);
                                     
                                     //add to data tables
+                                    var browserDataAdded = false;
                                     $("#browser-dataset table td:not(.num)").each(function() {
-                                        if($(this).text() == message.browser)
+                                        if($(this).text() == message.browser) {
                                             $(this).parent().find(".num").text(parseInt($(this).parent().find(".num").text()) + 1);
+                                            browserDataAdded = true;
+                                        }
                                     });
+                                    if(!browserDataAdded) {
+                                        $("#browser-dataset table").html($("#browser-dataset table").html()+\'<tr><td>\'+message.browser+\'</td><td class="num">1</td></tr>\');
+                                    }
                                     
+                                    var osDataAdded = false;
                                     $("#os-dataset table td:not(.num)").each(function() {
-                                        if($(this).text() == message.os)
+                                        if($(this).text() == message.os) {
                                             $(this).parent().find(".num").text(parseInt($(this).parent().find(".num").text()) + 1);
+                                            osDataAdded = true;
+                                        }
                                     });
+                                    if(!osDataAdded) {
+                                        $("#os-dataset table").html($("#os-dataset table").html()+\'<tr><td>\'+message.os+\'</td><td class="num">1</td></tr>\');
+                                    }
                                     //TODO: If not set, create new entry
                                 }
                             });
