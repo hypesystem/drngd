@@ -61,77 +61,14 @@
                                 channel : "'.trim($_GET['l']).'",
                                 restore : false,
                                 callback : function(message) {
-                                    visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y++;
-                                    visitsChart.redraw();
-                                    $("#total_visits").text(parseInt($("#total_visits").text()) + 1);
-                                    $("#visits-dataset table .num").each(function() {
-                                        $(this).text(parseInt($(this).text()) + 1);
-                                    });
-                                    
-                                    var browserAdded = false;
-                                    for(var z = 0; z < browserChart.series[0].data.length; z++) {
-                                        if(browserChart.series[0].data[z].name == message.browser) {
-                                            browserChart.series[0].data[z].y++;
-                                            browserChart.render();
-                                            browserAdded = true;
-                                        }
-                                    }
-                                    if(!browserAdded) browserChart.series[0].addPoint({name: message.browser, y: 1},true);
-                                    
-                                    var osAdded = false;
-                                    for(var z = 0; z < osChart.series[0].data.length; z++) {
-                                        if(osChart.series[0].data[z].name == message.os) {
-                                            osChart.series[0].data[z].y++;
-                                            osChart.render();
-                                            osAdded = true;
-                                        }
-                                    }
-                                    if(!osAdded) osChart.series[0].addPoint({name: message.os, y: 1},true);
+                                    //update charts
+                                    visitsIncrement();
+                                    pieChartIncrementField(browserChart,message.browser);
+                                    pieChartIncrementField(osChart,message.os);
                                     
                                     //add to data tables
-                                    var browserDataAdded = false;
-                                    $("#browser-dataset table td:not(.num)").each(function() {
-                                        if($(this).text() == message.browser) {
-                                            var val = parseInt($(this).parent().find(".num").text()) + 1;
-                                            $(this).parent().find(".num").text(val);
-                                            var element = $(this).parent().prev();
-                                            if(parseInt(element.find(".num").text()) < val) {
-                                                while(val > parseInt(element.find(".num").text())) {
-                                                    element = element.prev();
-                                                }
-                                                var this_html = $(this).parent().html();
-                                                element.after("<tr>"+this_html+"</tr>");
-                                                $(this).parent().remove();
-                                            }
-                                            browserDataAdded = true;
-                                            return false;
-                                        }
-                                    });
-                                    if(!browserDataAdded) {
-                                        $("#browser-dataset tbody").html($("#browser-dataset tbody").html()+\'<tr><td>\'+message.browser+\'</td><td class="num">1</td></tr>\');
-                                    }
-                                    
-                                    var osDataAdded = false;
-                                    $("#os-dataset table td:not(.num)").each(function() {
-                                        if($(this).text() == message.os) {
-                                            var val = parseInt($(this).parent().find(".num").text()) + 1;
-                                            $(this).parent().find(".num").text(val);
-                                            var element = $(this).parent().prev();
-                                            if(parseInt(element.find(".num").text()) < val) {
-                                                while(val > parseInt(element.find(".num").text())) {
-                                                    element = element.prev();
-                                                }
-                                                var this_html = $(this).parent().html();
-                                                element.after("<tr>"+this_html+"</tr>");
-                                                $(this).parent().remove();
-                                            }
-                                            osDataAdded = true;
-                                            return false;
-                                        }
-                                    });
-                                    if(!osDataAdded) {
-                                        $("#os-dataset tbody").html($("#os-dataset tbody").html()+\'<tr><td>\'+message.os+\'</td><td class="num">1</td></tr>\');
-                                    }
+                                    datasetIncrementField("#browser-dataset",message.browser);
+                                    datasetIncrementField("#os-dataset",message.os);
                                 }
                             });
                         })();

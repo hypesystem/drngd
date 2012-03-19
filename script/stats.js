@@ -138,8 +138,53 @@ function buildCharts(link_id) {
     });
 }
 
+//PUBNUB Implements functions
+function visitsIncrement() {
+    visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y++;
+    visitsChart.redraw();
+    $("#total_visits").text(parseInt($("#total_visits").text()) + 1);
+    $("#visits-dataset table .num").each(function() {
+        $(this).text(parseInt($(this).text()) + 1);
+    });
+}
+
+function pieChartIncrementField(chart, field) {
+    var fieldUpdated = false;
+    for(var z = 0; z < chart.series[0].data.length; z++) {
+        if(chart.series[0].data[z].name == field) {
+            chart.series[0].data[z].y++;
+            chart.render();
+            fieldUpdated = true;
+        }
+    }
+    if(!fieldUpdated) chart.series[0].addPoint({name: field, y: 1},true);
+}
+
+function datasetIncrementField(dataset, field) {
+    var fieldUpdated = false;
+    $(dataset+" table td:not(.num)").each(function() {
+        if($(this).text() == field) {
+            var val = parseInt($(this).parent().find(".num").text()) + 1;
+            $(this).parent().find(".num").text(val);
+            var element = $(this).parent().prev();
+            if(parseInt(element.find(".num").text()) < val) {
+                while(val > parseInt(element.find(".num").text())) {
+                    element = element.prev();
+                }
+                var this_html = $(this).parent().html();
+                element.after("<tr>"+this_html+"</tr>");
+                $(this).parent().remove();
+            }
+            fieldUpdated = true;
+            return false;
+        }
+    });
+    if(!fieldUpdated) {
+        $(dataset+" tbody").html($(dataset+" tbody").html()+'<tr><td>'+field+'</td><td class="num">1</td></tr>');
+    }
+}
+
 //View/hide datasets
-//TODO: Data fields should be updated on PUBNUB call
 $(document).ready(function() {
     $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').each(function() {
         $(this).html($(this).html()+'<div class="see-data">see data</div>');
