@@ -62,7 +62,7 @@
                                 restore : false,
                                 callback : function(message) {
                                     visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y++;
-                                    visitsChart.render();
+                                    visitsChart.redraw();
                                     $("#total_visits").text(parseInt($("#total_visits").text()) + 1);
                                     $("#visits-dataset table .num").each(function() {
                                         $(this).text(parseInt($(this).text()) + 1);
@@ -92,12 +92,23 @@
                                     var browserDataAdded = false;
                                     $("#browser-dataset table td:not(.num)").each(function() {
                                         if($(this).text() == message.browser) {
-                                            $(this).parent().find(".num").text(parseInt($(this).parent().find(".num").text()) + 1);
+                                            var val = parseInt($(this).parent().find(".num").text()) + 1;
+                                            $(this).parent().find(".num").text(val);
+                                            var element = $(this).parent().prev();
+                                            if(parseInt(element.find(".num").text()) < val) {
+                                                while(val > parseInt(element.find(".num").text())) {
+                                                    element = element.prev();
+                                                }
+                                                var this_html = $(this).parent().html();
+                                                element.after("<tr>"+this_html+"</tr>");
+                                                $(this).parent().remove();
+                                            }
                                             browserDataAdded = true;
+                                            return false;
                                         }
                                     });
                                     if(!browserDataAdded) {
-                                        $("#browser-dataset table").html($("#browser-dataset table").html()+\'<tr><td>\'+message.browser+\'</td><td class="num">1</td></tr>\');
+                                        $("#browser-dataset tbody").html($("#browser-dataset tbody").html()+\'<tr><td>\'+message.browser+\'</td><td class="num">1</td></tr>\');
                                     }
                                     
                                     var osDataAdded = false;
@@ -105,9 +116,13 @@
                                         if($(this).text() == message.os) {
                                             var val = parseInt($(this).parent().find(".num").text()) + 1;
                                             $(this).parent().find(".num").text(val);
-                                            if(parseInt($(this).parent().prev().find(".num").text()) < val) {
+                                            var element = $(this).parent().prev();
+                                            if(parseInt(element.find(".num").text()) < val) {
+                                                while(val > parseInt(element.find(".num").text())) {
+                                                    element = element.prev();
+                                                }
                                                 var this_html = $(this).parent().html();
-                                                $(this).parent().prev().before(this_html);
+                                                element.after("<tr>"+this_html+"</tr>");
                                                 $(this).parent().remove();
                                             }
                                             osDataAdded = true;
@@ -115,7 +130,7 @@
                                         }
                                     });
                                     if(!osDataAdded) {
-                                        $("#os-dataset table").html($("#os-dataset tbody").html()+\'<tr><td>\'+message.os+\'</td><td class="num">1</td></tr>\');
+                                        $("#os-dataset tbody").html($("#os-dataset tbody").html()+\'<tr><td>\'+message.os+\'</td><td class="num">1</td></tr>\');
                                     }
                                 }
                             });
