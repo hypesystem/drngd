@@ -103,14 +103,20 @@
                                     var osDataAdded = false;
                                     $("#os-dataset table td:not(.num)").each(function() {
                                         if($(this).text() == message.os) {
-                                            $(this).parent().find(".num").text(parseInt($(this).parent().find(".num").text()) + 1);
+                                            var val = parseInt($(this).parent().find(".num").text()) + 1;
+                                            $(this).parent().find(".num").text(val);
+                                            if(parseInt($(this).parent().prev().find(".num").text()) < val) {
+                                                var this_html = $(this).parent().html();
+                                                $(this).parent().prev().before(this_html);
+                                                $(this).parent().remove();
+                                            }
                                             osDataAdded = true;
+                                            return false;
                                         }
                                     });
                                     if(!osDataAdded) {
-                                        $("#os-dataset table").html($("#os-dataset table").html()+\'<tr><td>\'+message.os+\'</td><td class="num">1</td></tr>\');
+                                        $("#os-dataset table").html($("#os-dataset tbody").html()+\'<tr><td>\'+message.os+\'</td><td class="num">1</td></tr>\');
                                     }
-                                    //TODO: If not set, create new entry
                                 }
                             });
                         })();
