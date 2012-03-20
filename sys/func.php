@@ -13,4 +13,35 @@ function verifyLinkKey($key) {
     return false;
 }
 
+function getBrowserFromUserAgent($userAgent) {
+    $known_browsers = array(
+        "msie" => "Internet Explorer",
+        "firefox" => "Firefox",
+        "netscape" => "Netscape",
+        "chrome" => "Chrome",
+        "konqueror" => "Konqueror",
+        "opera" => "Opera",
+        "safari" => "Safari",
+        "mozilla" => "Mozilla",
+        " " => "Other"
+    );
+    foreach($known_browsers as $key => $name) {
+        if(preg_match("@".$key."@",strtolower($userAgent))) { return $name; }
+    }
+    return "Other";
+}
+
+function getOSFromUserAgent($userAgent) {
+    $known_os = array(
+        "windows" => "Windows",
+        "linux" => "Linux",
+        "macintosh" => "Mac",
+        " " => "Other"
+    );
+    foreach($known_os as $key => $name) {
+        if(preg_match("@".$key."@",strtolower($userAgent))) { return $name; }
+    }
+    return "Other";
+}
+
 ?>
