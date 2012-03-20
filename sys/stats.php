@@ -61,7 +61,6 @@
                                 channel : "'.trim($_GET['l']).'",
                                 restore : false,
                                 callback : function(message) {
-                                    console.log(message.ip);
                                     //update charts
                                     visitsIncrement();
                                     pieChartIncrementField(browserChart,message.browser);
