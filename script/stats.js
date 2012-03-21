@@ -141,7 +141,7 @@ function buildCharts(link_id) {
 //PUBNUB Implements functions
 function visitsIncrement() {
     visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y++;
-    visitsChart.redraw();
+    visitsChart.render();
     $("#total_visits").text(parseInt($("#total_visits").text()) + 1);
     $("#visits-dataset table .num").each(function() {
         $(this).text(parseInt($(this).text()) + 1);
