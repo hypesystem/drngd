@@ -26,7 +26,7 @@
 
         $page_content = '<div class="top"><table><tr>
                             <th>Original link:</th>
-                            <td id="original_link"><a href="'.$arr['original_url'].'" target="_blank">'.$arr['original_url'].'</td>
+                            <td id="original_link"><a href="'.$arr['link'].'" title="'.$arr['original_url'].'" target="_blank">'.(strlen($arr['original_url']) > 30 ? substr($arr['original_url'],0,28)."&hellip;" : $arr['original_url']).'</a></td>
                         </tr><tr>
                             <th>Created at:</th>
                             <td id="created_at">'.date("j-m-Y H:i",$arr['created_at']).'</td>
@@ -52,7 +52,27 @@
                             <div id="browser-graph" class="graph"></div>
                             <div class="data">'.$browser_table.'</div>
                         </div>
-                        <script type="text/javascript">$(document).ready(function(){buildCharts("'.$_GET['l'].'");});</script>';
+                        <script type="text/javascript">$(document).ready(function(){buildCharts("'.$_GET['l'].'");});</script>
+                        <div sub-key="sub-9e516238-2685-11e1-b204-671e781827dd" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+                        <script type="text/javascript" src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
+                        <script type="text/javascript">
+                        (function(){
+                            PUBNUB.subscribe({
+                                channel : "'.trim($_GET['l']).'",
+                                restore : false,
+                                callback : function(message) {
+                                    //update charts
+                                    visitsIncrement();
+                                    pieChartIncrementField(browserChart,message.browser);
+                                    pieChartIncrementField(osChart,message.os);
+                                    
+                                    //add to data tables
+                                    datasetIncrementField($("#browser-dataset"),message.browser);
+                                    datasetIncrementField($("#os-dataset"),message.os);
+                                }
+                            });
+                        })();
+                        </script>';
     }
     else $page_content .= ' '.(isset($arr['error']) ? $arr['error'] : "Could not connect to server.").'.';
     

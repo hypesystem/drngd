@@ -1,3 +1,4 @@
+//CHARTS
 var browserChart, osChart, visitsChart;
 function buildCharts(link_id) {
     $(".graph").css("display","inline-block");
@@ -137,29 +138,71 @@ function buildCharts(link_id) {
     });
 }
 
-$(document).ready(function() {
-    var visits_data_html = $('#visits-dataset .data').html();
-    var browser_data_html = $('#browser-dataset .data').html();
-    var os_data_html = $('#os-dataset .data').html();
-    
-    $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').click(function() {
-        if($(this).text() == "see data") {
-            $(this).slideUp("fast");
-            $(this).css("font-size","16px").css("text-decoration","none");
-            switch($(this).parent().attr("id")) {
-                case("visits-dataset"):
-                    $(this).html(visits_data_html);
-                    break;
-                case("os-dataset"):
-                    $(this).html(os_data_html);
-                    break;
-                case("browser-dataset"):
-                    $(this).html(browser_data_html);
-                    break;
+//PUBNUB Implements functions
+function visitsIncrement() {
+    visitsChart.series[0].data[visitsChart.series[0].data.length - 1].y++;
+    visitsChart.render();
+    $("#total_visits").text(parseInt($("#total_visits").text()) + 1);
+    $("#visits-dataset table .num").each(function() {
+        $(this).text(parseInt($(this).text()) + 1);
+    });
+}
+
+function pieChartIncrementField(chart, field) {
+    var fieldUpdated = false;
+    for(var z = 0; z < chart.series[0].data.length; z++) {
+        if(chart.series[0].data[z].name == field) {
+            chart.series[0].data[z].y++;
+            chart.render();
+            fieldUpdated = true;
+        }
+    }
+    if(!fieldUpdated) chart.series[0].addPoint({name: field, y: 1},true);
+}
+
+function datasetIncrementField(dataset, field) {
+    var fieldUpdated = false;
+    dataset.find("table td:not(.num)").each(function() {
+        if($(this).text() == field) {
+            var val = parseInt($(this).parent().find(".num").text()) + 1;
+            $(this).parent().find(".num").text(val);
+            var element = $(this).parent().prev();
+            if(parseInt(element.find(".num").text()) < val) {
+                while(val > parseInt(element.find(".num").text())) {
+                    element = element.prev();
+                }
+                var this_html = $(this).parent().html();
+                element.after("<tr>"+this_html+"</tr>");
+                $(this).parent().remove();
             }
+            fieldUpdated = true;
+            return false;
+        }
+    });
+    if(!fieldUpdated) {
+        dataset.find("tbody").html(dataset.find("tbody").html()+'<tr><td>'+field+'</td><td class="num">1</td></tr>');
+    }
+}
+
+//View/hide datasets
+$(document).ready(function() {
+    $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').each(function() {
+        $(this).html($(this).html()+'<div class="see-data">see data</div>');
+        $(this).css('cursor','pointer');
+        $(this).find('table').hide();
+        $(this).find('.see-data').hide();
+    });
+    $('#visits-dataset .data, #browser-dataset .data, #os-dataset .data').click(function() {
+        if($(this).find('.see-data').css('display') == "none") {
+            $(this).slideUp("fast").css("font-size","12px").css("text-decoration","underline");
+            $(this).find('.see-data').show();
+            $(this).find('table').hide();
         }
         else {
-            $(this).slideUp("fast").text("see data").css("font-size","12px").css("cursor","pointer").css("text-decoration","underline");
+            $(this).slideUp("fast");
+            $(this).find('.see-data').hide();
+            $(this).find('table').show();
+            $(this).css("font-size","16px").css("text-decoration","none");
         }
         $(this).slideDown("fast");
     });
